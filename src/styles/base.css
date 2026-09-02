@@ -1,0 +1,13 @@
+/* Element defaults, plus the custom properties that are not Tailwind tokens
+   (they drive plain CSS in components/, not utility generation). */
+
+:root {
+  /* Height of the site header. The hero subtracts it to fill the rest of the
+     viewport - keep in sync with the `h-20` on <Header>. */
+  --header-height: 5rem;
+}
+
+body {
+  font-family: var(--font-inter), ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}

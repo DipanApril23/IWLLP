@@ -1,0 +1,30 @@
+{
+  "servicesOverview": {
+    "eyebrow": "What we do",
+    "title": "Security and investigative services",
+    "description": "A single point of contact for investigative, security and due-diligence work, handled with discretion and legal compliance."
+  },
+  "whyChooseUs": {
+    "eyebrow": "Why Innerwork",
+    "title": "Built on discretion and evidence",
+    "points": [
+      {
+        "title": "Confidential by default",
+        "description": "Every engagement is handled under strict confidentiality agreements, with information shared on a need-to-know basis only."
+      },
+      {
+        "title": "Legally compliant",
+        "description": "Investigations and verifications are carried out within the bounds of Indian law, so findings hold up when they matter."
+      },
+      {
+        "title": "Experienced field team",
+        "description": "A vetted network of investigators, analysts and security personnel across West Bengal."
+      }
+    ]
+  },
+  "cta": {
+    "title": "Need a discreet consultation?",
+    "description": "Call {phone} or send us a message and we'll respond within one business day.",
+    "button": { "label": "Contact us", "href": "/contact" }
+  }
+}

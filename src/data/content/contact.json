@@ -1,0 +1,26 @@
+{
+  "metaTitle": "Contact",
+  "eyebrow": "Contact",
+  "title": "Talk to an advisor",
+  "description": "Every enquiry is confidential. Tell us briefly what you need and we'll get back to you within one business day.",
+  "details": {
+    "phoneLabel": "Phone",
+    "emailLabel": "Email",
+    "officeLabel": "Office"
+  },
+  "form": {
+    "fields": [
+      { "id": "name", "label": "Name", "type": "text", "required": true },
+      { "id": "email", "label": "Email", "type": "email", "required": true },
+      {
+        "id": "message",
+        "label": "How can we help?",
+        "type": "textarea",
+        "rows": 5,
+        "required": true
+      }
+    ],
+    "submitLabel": "Send message",
+    "successMessage": "Thanks — we've received your message and will be in touch shortly."
+  }
+}

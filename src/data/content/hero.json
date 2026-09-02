@@ -1,0 +1,26 @@
+{
+  "slides": [
+    {
+      "image": "carousel1.webp",
+      "alt": "A guilty verdict stamp beside a pair of handcuffs",
+      "headline": ["READY TO RESOLVE", "READY TO UNCOVER"],
+      "description": "Whether you need security services or investigative assistance, we're ready to help. Schedule a consultation and take the first steps towards resolution and truth."
+    },
+    {
+      "image": "carousel2.webp",
+      "alt": "Two people shaking hands after an agreement",
+      "headline": ["Immediate Action | Enduring Results"],
+      "description": "With our 24/7 emergency service, you can count on us to take swift action and provide effective security and investigation solutions—anytime, anywhere."
+    },
+    {
+      "image": "carousel3.webp",
+      "alt": "An investigator watching through window blinds",
+      "headline": ["FROM SUSPICION", "TO SOLUTION"],
+      "description": "Put your suspicions to rest with our comprehensive investigative services. Let us help you find the answers you seek."
+    }
+  ],
+  "ctas": {
+    "primary": { "label": "Book a Consultation", "href": "/contact" },
+    "secondary": { "label": "Contact Us", "href": "/contact" }
+  }
+}

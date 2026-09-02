@@ -1,0 +1,18 @@
+/* Stylesheet entry point - imported once, by src/app/layout.tsx.
+   Everything below is a partial; nothing but imports belongs in this file.
+
+     theme.css        design tokens Tailwind turns into utilities
+     base.css         element defaults and non-Tailwind custom properties
+     animations.css   shared @keyframes
+     components/      one file per component that needs real CSS */
+
+@import "tailwindcss";
+@import "./theme.css";
+@import "./base.css";
+@import "./animations.css";
+@import "./components/hero.css";
+@import "./components/cta-button.css";
+
+/* This file no longer lives next to the components, so point Tailwind's class
+   scanner at the whole src tree explicitly. */
+@source "../";

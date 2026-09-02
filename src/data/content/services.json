@@ -1,0 +1,58 @@
+{
+  "page": {
+    "metaTitle": "Services",
+    "metaDescription": "Security, investigation and due-diligence services.",
+    "eyebrow": "Services",
+    "title": "What we offer",
+    "description": "Every engagement is scoped around the outcome you need, handled discreetly and within Indian law."
+  },
+  "detail": {
+    "eyebrow": "Services",
+    "ctaLabel": "Enquire about this service",
+    "ctaHref": "/contact"
+  },
+  "items": [
+    {
+      "slug": "private-investigation",
+      "title": "Private Investigation",
+      "shortDescription": "Discreet, evidence-based investigations for individuals and businesses.",
+      "description": "Confidential investigative support covering matrimonial, personal and civil matters, carried out with legal compliance and strict client confidentiality.",
+      "icon": "search"
+    },
+    {
+      "slug": "corporate-intelligence",
+      "title": "Corporate Intelligence",
+      "shortDescription": "Due diligence and risk intelligence for informed business decisions.",
+      "description": "Data-driven due diligence, competitor intelligence and risk assessments that help businesses make informed, defensible decisions.",
+      "icon": "briefcase"
+    },
+    {
+      "slug": "background-verification",
+      "title": "Background Verification",
+      "shortDescription": "Thorough background checks for employment, tenancy and partnerships.",
+      "description": "Verification of identity, address, employment history and criminal records for individuals and organisations before entering into an agreement.",
+      "icon": "user-check"
+    },
+    {
+      "slug": "security-services",
+      "title": "Security Guard Services",
+      "shortDescription": "Trained security personnel for residential and commercial properties.",
+      "description": "Deployment of vetted, trained security guards and supervisors for residential societies, offices and events across West Bengal.",
+      "icon": "shield"
+    },
+    {
+      "slug": "home-security",
+      "title": "Home Security Consulting",
+      "shortDescription": "Security audits and surveillance planning for homes and gated communities.",
+      "description": "On-site security audits, CCTV and access-control planning, and gap analysis for homes and residential societies.",
+      "icon": "home"
+    },
+    {
+      "slug": "surveillance",
+      "title": "Surveillance & Monitoring",
+      "shortDescription": "Covert and overt surveillance to gather verifiable evidence.",
+      "description": "Trained field operatives conduct surveillance assignments to gather verifiable, court-admissible evidence where required.",
+      "icon": "eye"
+    }
+  ]
+}

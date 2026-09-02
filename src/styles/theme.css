@@ -1,0 +1,18 @@
+/* Design tokens. Tailwind reads these and generates the matching utilities:
+   --color-brand becomes bg-brand / text-brand, --font-display becomes
+   font-display, --animate-hero-in becomes animate-hero-in. */
+
+@theme inline {
+  /* Font stacks are fed by next/font in src/app/layout.tsx. */
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-display: var(--font-montserrat), var(--font-inter), ui-sans-serif,
+    system-ui, sans-serif;
+
+  /* Brand palette taken from the live site: navy CTAs, gold carousel dots. */
+  --color-brand: #3e5481;
+  --color-brand-dark: #33456b;
+  --color-accent: #cfa758;
+
+  --animate-hero-in: hero-in 700ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}

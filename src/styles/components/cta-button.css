@@ -1,0 +1,78 @@
+/* Spinning CTA ring - wraps any button in <span class="cta-spin">.
+
+   The wrapper adds a 3px gutter and clips a conic gradient to a rounded
+   rectangle, so on hover a light sweeps around the edge. The gradient layer is
+   square and oversized because rotating a rectangle would sweep its corners
+   out of view. The wrapper's own background is the faint full ring that the
+   comet travels along. Keyframes live in ../animations.css. */
+
+.cta-spin {
+  position: relative;
+  display: inline-flex;
+  padding: 3px;
+  overflow: hidden;
+  border-radius: 0.6rem;
+  isolation: isolate;
+  background-color: transparent;
+  transition:
+    background-color 250ms ease,
+    box-shadow 250ms ease;
+}
+
+.cta-spin:hover,
+.cta-spin:focus-within {
+  background-color: rgb(255 255 255 / 0.28);
+  box-shadow: 0 0 24px -6px rgb(207 167 88 / 0.8);
+}
+
+.cta-spin::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 190%;
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg 150deg,
+    rgb(207 167 88 / 0.55) 235deg,
+    var(--cta-ring, var(--color-accent)) 305deg,
+    #ffffff 345deg,
+    transparent 360deg
+  );
+  opacity: 0;
+  transition: opacity 250ms ease;
+  animation: cta-spin 1.2s linear infinite;
+  animation-play-state: paused;
+}
+
+.cta-spin:hover::before,
+.cta-spin:focus-within::before {
+  opacity: 1;
+  animation-play-state: running;
+}
+
+/* Keeps the button painted over the gradient - both are z-index auto, so DOM
+   order decides, and the ring only shows through the 3px gutter. */
+.cta-spin > * {
+  position: relative;
+  transition:
+    transform 250ms ease,
+    background-color 200ms ease,
+    color 200ms ease;
+}
+
+.cta-spin:hover > * {
+  transform: translateY(-1px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cta-spin::before {
+    animation: none;
+  }
+
+  .cta-spin:hover > * {
+    transform: none;
+  }
+}

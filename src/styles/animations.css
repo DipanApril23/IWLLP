@@ -1,0 +1,21 @@
+/* Shared keyframes. Anything used by more than one component, or referenced
+   from a token in theme.css, belongs here rather than in a component file. */
+
+/* Entrance for the active hero slide's copy. Driven by --animate-hero-in. */
+@keyframes hero-in {
+  from {
+    opacity: 0;
+    transform: translateY(1.5rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* The conic gradient sweeping around a hovered CTA - see components/cta-button.css. */
+@keyframes cta-spin {
+  to {
+    transform: translate(-50%, -50%) rotate(1turn);
+  }
+}
