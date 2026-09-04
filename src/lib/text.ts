@@ -14,3 +14,24 @@ export function interpolate(
     key in values ? String(values[key]) : match,
   );
 }
+
+export type TextSegment = {
+  text: string;
+  /** True for the halves that sat between `**` markers. */
+  emphasis: boolean;
+};
+
+/**
+ * Splits copy written with `**bold**` markers into renderable segments.
+ *
+ * Long-form copy in the JSON needs a few emphasised phrases, and asking an
+ * editor to hand-write an array of segments for one sentence is worse than
+ * asking them to type two asterisks. Splitting on the marker leaves the
+ * emphasised halves at every odd index.
+ */
+export function parseEmphasis(text: string): TextSegment[] {
+  return text
+    .split("**")
+    .map((part, i) => ({ text: part, emphasis: i % 2 === 1 }))
+    .filter((segment) => segment.text.length > 0);
+}

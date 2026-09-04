@@ -1,0 +1,37 @@
+{
+  "eyebrow": "Our Services",
+  "title": "WHAT WE DO",
+  "description": "When your **personal safety or peace of mind is at risk**, you need a **trusted security and investigative team** that will work relentlessly on your behalf. Our firm specializes in safeguarding our clients, providing **clarity, confidence and discreet support** when you need it most.",
+  "cta": { "label": "Know More", "href": "/services" },
+  "background": {
+    "image": "carousels/carousel3.webp",
+    "alt": ""
+  },
+  "cards": [
+    {
+      "icon": "search",
+      "title": "Investigation",
+      "description": "Uncovering the truth, gathering evidence, resolving complex cases, ensuring accountability, and delivering justice."
+    },
+    {
+      "icon": "shield",
+      "title": "Personal Security",
+      "description": "Protecting lives, securing assets, ensuring safety, and providing peace of mind and confidence."
+    },
+    {
+      "icon": "briefcase",
+      "title": "Corporate Intelligence",
+      "description": "Demo copy — due diligence, competitor insight and risk assessment that let a business decide on evidence rather than instinct."
+    },
+    {
+      "icon": "user-check",
+      "title": "Background Checks",
+      "description": "Demo copy — identity, address, employment and record verification before you hire, rent or sign a partnership."
+    },
+    {
+      "icon": "eye",
+      "title": "Surveillance",
+      "description": "Demo copy — covert and overt field operatives gathering verifiable, court-admissible evidence where a case demands it."
+    }
+  ]
+}

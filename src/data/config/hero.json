@@ -1,5 +1,5 @@
 {
-  "imageBaseUrl": "https://innerworkadvisorsllp.com/images/carousels",
+  "imagePath": "carousels",
   "autoplayMs": 6000,
   "swipeThresholdPx": 50
 }

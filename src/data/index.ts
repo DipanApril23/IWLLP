@@ -27,6 +27,7 @@ export {
   type ServiceIcon,
 } from "./services";
 export { servicesOverview, whyChooseUs, homeCta } from "./home";
+export { whatWeDo, type WhatWeDoCard } from "./what-we-do";
 export { aboutContent } from "./about";
 export { contactContent, type ContactField } from "./contact";
 export { footerContent, footerCopyright } from "./footer";

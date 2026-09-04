@@ -1,14 +1,16 @@
 // Loader for the hero carousel.
 //
 //   ./content/hero.json   copy: the fixed heading, the slide images, the CTAs
-//   ./config/hero.json    developer config: where the images are hosted, how
-//                         long a slide holds, how far a swipe has to travel
+//   ./config/hero.json    developer config: which image folder, how long a
+//                         slide holds, how far a swipe has to travel
+//   ./config/images.json  the host every remote image is served from
 //
 // The split is deliberate. Copy is something an editor changes; the image host
 // and the autoplay interval are deployment/behaviour settings, and mixing the
 // two is how a content file turns into a config file nobody wants to touch.
 import heroContent from "./content/hero.json";
 import heroConfig from "./config/hero.json";
+import imagesConfig from "./config/images.json";
 
 /** The headline and lede. Fixed - only the photograph behind them rotates. */
 export type HeroHeading = {
@@ -32,7 +34,7 @@ export const heroHeading: HeroHeading = heroContent.heading;
 
 export const heroSlides: HeroSlide[] = heroContent.slides.map((slide) => ({
   ...slide,
-  image: `${heroConfig.imageBaseUrl}/${slide.image}`,
+  image: `${imagesConfig.baseUrl}/${heroConfig.imagePath}/${slide.image}`,
 }));
 
 export const heroCtas: { primary: HeroCta; secondary: HeroCta } =
