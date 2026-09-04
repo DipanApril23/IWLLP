@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { Container } from "@/components/layout/Container";
 import { Button } from "@/components/ui/Button";
-import { ServiceIcon } from "@/components/ui/ServiceIcon";
+import { Icon } from "@/components/ui/Icon";
 import { whatWeDo } from "@/data";
 import { parseEmphasis } from "@/lib/text";
 
@@ -65,7 +65,7 @@ export function WhatWeDo() {
         <div className="what-we-do__panel mt-14 sm:mt-16">
           {whatWeDo.cards.map((card) => (
             <article key={card.title} className="what-we-do__card">
-              <ServiceIcon
+              <Icon
                 name={card.icon}
                 className="what-we-do__icon text-accent h-8 w-8"
                 strokeWidth={1.75}

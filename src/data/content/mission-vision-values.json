@@ -1,0 +1,25 @@
+{
+  "cards": [
+    {
+      "title": "Our Mission",
+      "icon": "target",
+      "image": "our-mission.png",
+      "alt": "The word MISSION spelled out in letters standing in sand",
+      "description": "Our mission is to offer unparalleled investigative and security service, driven by our core values of integrity, professionalism, and unwavering commitment to serve our clients' utmost interests."
+    },
+    {
+      "title": "Our Vision",
+      "icon": "eye",
+      "image": "our-vision.png",
+      "alt": "The word VISION spelled out in metal letters at sunset",
+      "description": "Our vision is to emerge as a prominent authority in the investigative and security service, celebrated for our truth seekers, unwavering dedication to absolute truth, and transformative influence on the well-being of our clients."
+    },
+    {
+      "title": "Our Values",
+      "icon": "gem",
+      "image": "our-values.png",
+      "alt": "The word VALUES spelled out in letters standing in sand",
+      "description": "Our firm's values are central to who we are, influencing how we work with clients, colleagues, and the community. Integrity is key for us, meaning we prioritize honesty, transparency, and ethical behaviour in everything we do."
+    }
+  ]
+}

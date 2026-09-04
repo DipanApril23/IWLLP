@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Container } from "@/components/layout/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { ServiceIcon } from "@/components/ui/ServiceIcon";
+import { Icon } from "@/components/ui/Icon";
 import { services, servicesOverview } from "@/data";
 
 export function ServicesOverview() {
@@ -21,10 +21,7 @@ export function ServicesOverview() {
               href={`/services/${service.slug}`}
               className="rounded-lg border border-slate-200 p-6 transition-colors hover:border-slate-400"
             >
-              <ServiceIcon
-                name={service.icon}
-                className="h-6 w-6 text-slate-700"
-              />
+              <Icon name={service.icon} className="h-6 w-6 text-slate-700" />
               <p className="mt-4 text-base font-medium text-slate-900">
                 {service.title}
               </p>

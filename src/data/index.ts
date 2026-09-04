@@ -28,6 +28,10 @@ export {
 } from "./services";
 export { servicesOverview, whyChooseUs, homeCta } from "./home";
 export { whatWeDo, type WhatWeDoCard } from "./what-we-do";
+export {
+  missionVisionValues,
+  type MissionVisionValuesCard,
+} from "./mission-vision-values";
 export { aboutContent } from "./about";
 export { contactContent, type ContactField } from "./contact";
 export { footerContent, footerCopyright } from "./footer";

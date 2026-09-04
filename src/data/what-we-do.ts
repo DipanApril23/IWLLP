@@ -5,7 +5,7 @@ import imagesConfig from "./config/images.json";
 import type { ServiceIcon } from "./services";
 
 export type WhatWeDoCard = {
-  /** A key of the icon map in src/components/ui/ServiceIcon.tsx. */
+  /** A key of the icon map in src/components/ui/Icon.tsx. */
   icon: ServiceIcon;
   title: string;
   description: string;

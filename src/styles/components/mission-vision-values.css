@@ -1,0 +1,134 @@
+/* Mission / Vision / Values panels - src/components/home/MissionVisionValues.tsx
+
+   Three photo panels with the copy laid over them. Kept in CSS rather than
+   utilities because the card is a stack of absolutely positioned layers whose
+   hover states are coupled (image zooms, wash lifts, rule extends). */
+
+.mvv {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+/* Three across only once each panel can hold its paragraph without turning
+   into a column of single words. Below that they stack full width, which
+   reads better on a phone or tablet than three cramped slivers. */
+@media (width >= 64rem) {
+  .mvv {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.75rem;
+  }
+}
+
+.mvv__card {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: flex;
+  min-block-size: 15rem;
+  border-radius: 0.75rem;
+  background-color: #1e293b;
+  box-shadow: 0 18px 40px -28px rgb(2 6 23 / 0.85);
+}
+
+@media (width >= 64rem) {
+  .mvv__card {
+    min-block-size: 17.5rem;
+  }
+}
+
+.mvv__image {
+  transition: transform 600ms ease-out;
+}
+
+.mvv__card:hover .mvv__image {
+  transform: scale(1.06);
+}
+
+/* The photographs are light sand and low contrast, so the wash has to be
+   heavy enough to carry white text across the whole panel, not just a corner. */
+.mvv__shade {
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(
+    to bottom,
+    rgb(2 6 23 / 0.72),
+    rgb(2 6 23 / 0.62) 45%,
+    rgb(2 6 23 / 0.78)
+  );
+  transition: opacity 300ms ease;
+}
+
+.mvv__card:hover .mvv__shade {
+  opacity: 0.88;
+}
+
+.mvv__body {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  inline-size: 100%;
+  padding: 2.25rem 1.75rem;
+  text-align: center;
+}
+
+.mvv__title {
+  font-size: clamp(1.25rem, 1.15rem + 0.5vw, 1.5rem);
+  font-style: italic;
+  font-weight: 600;
+  color: #ffffff;
+  text-shadow: 0 2px 10px rgb(0 0 0 / 0.6);
+}
+
+.mvv__rule {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  inline-size: 100%;
+  max-inline-size: 18rem;
+  margin-block: 1rem 1.15rem;
+}
+
+.mvv__rule-line {
+  flex: 1;
+  block-size: 1px;
+  background-color: rgb(255 255 255 / 0.45);
+  transition: background-color 300ms ease;
+}
+
+.mvv__card:hover .mvv__rule-line {
+  background-color: rgb(207 167 88 / 0.85);
+}
+
+.mvv__icon {
+  flex: none;
+  transition: transform 300ms ease;
+}
+
+.mvv__card:hover .mvv__icon {
+  transform: translateY(-2px) scale(1.1);
+}
+
+.mvv__text {
+  font-size: 0.9375rem;
+  line-height: 1.65;
+  color: rgb(255 255 255 / 0.92);
+  text-shadow: 0 1px 8px rgb(0 0 0 / 0.55);
+  max-inline-size: 34rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mvv__image,
+  .mvv__shade,
+  .mvv__rule-line,
+  .mvv__icon {
+    transition: none;
+  }
+
+  .mvv__card:hover .mvv__image,
+  .mvv__card:hover .mvv__icon {
+    transform: none;
+  }
+}
