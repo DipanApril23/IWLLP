@@ -5,15 +5,26 @@
    markup. */
 
 .hero {
-  block-size: calc(100svh - var(--header-height));
-  min-block-size: 37.5rem;
+  /* Phones and tablets: height follows the content, with a floor that still
+     reads as a hero. Filling the viewport here stranded the copy in the middle
+     of a tall empty frame - there is no second column down here to fill it. */
+  min-block-size: max(28rem, 62svh);
 }
 
-/* Short viewports - landscape phones, split screens. A 600px floor there would
-   push everything below the hero off screen. */
-@media (max-height: 40rem) {
+/* From lg the reserved chatbot column exists, so a full-viewport hero is
+   filled rather than empty. */
+@media (width >= 64rem) {
   .hero {
-    min-block-size: 26rem;
+    block-size: calc(100svh - var(--header-height));
+    min-block-size: 37.5rem;
+  }
+}
+
+/* Short viewports - landscape phones, split screens. A tall floor there would
+   push everything below the hero off screen. */
+@media (height <= 40rem) {
+  .hero {
+    min-block-size: 24rem;
   }
 }
 
