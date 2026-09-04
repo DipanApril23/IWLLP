@@ -7,23 +7,35 @@
    edges every time the grid wraps. */
 
 .what-we-do__shade {
+  /* Two washes. The horizontal one carries the contrast for the copy on the
+     left and thins out to the right; the vertical one only darkens the top and
+     bottom edges and stays clear through the middle, which is where the
+     photograph actually needs to read. Stacking two heavy gradients composites
+     to ~0.7 alpha and buries the image. */
   background-image: linear-gradient(
       to right,
-      rgb(2 6 23 / 0.94),
-      rgb(2 6 23 / 0.72) 55%,
-      rgb(2 6 23 / 0.55)
+      rgb(2 6 23 / 0.92),
+      rgb(2 6 23 / 0.55) 50%,
+      rgb(2 6 23 / 0.2)
     ),
-    linear-gradient(to bottom, rgb(2 6 23 / 0.5), rgb(2 6 23 / 0.35) 40%, rgb(2 6 23 / 0.8));
+    linear-gradient(
+      to bottom,
+      rgb(2 6 23 / 0.4),
+      rgb(2 6 23 / 0) 35%,
+      rgb(2 6 23 / 0) 60%,
+      rgb(2 6 23 / 0.5)
+    );
 }
 
-/* Below lg the copy is not confined to the left half, so shade evenly. */
+/* Below lg the copy is not confined to the left half, so shade evenly - the
+   photograph gives way to legibility here. */
 @media (width < 64rem) {
   .what-we-do__shade {
     background-image: linear-gradient(
       to bottom,
-      rgb(2 6 23 / 0.86),
-      rgb(2 6 23 / 0.78) 45%,
-      rgb(2 6 23 / 0.9)
+      rgb(2 6 23 / 0.82),
+      rgb(2 6 23 / 0.68) 45%,
+      rgb(2 6 23 / 0.86)
     );
   }
 }
