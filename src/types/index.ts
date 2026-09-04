@@ -4,6 +4,7 @@ export type {
   Service,
   ServiceIcon,
   NavLink,
+  HeroHeading,
   HeroSlide,
   HeroCta,
   ContactField,

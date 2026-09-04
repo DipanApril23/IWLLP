@@ -9,6 +9,7 @@ import {
   HERO_AUTOPLAY_MS,
   HERO_SWIPE_THRESHOLD_PX,
   heroCtas,
+  heroHeading,
   heroSlides,
   siteConfig,
 } from "@/data";
@@ -39,7 +40,7 @@ export function Hero({ chatbotSlot }: HeroProps) {
 
   // Autoplay never pauses: the hero fills the viewport, so pausing on hover or
   // focus would leave it frozen for anyone whose cursor is simply resting on
-  // the page. The arrows and dots are the manual control instead.
+  // the page. The arrows, dots and swipe are the manual control instead.
   // `active` is a dependency on purpose - manual navigation restarts the timer
   // so a slide is never cut short right after the user picks it.
   useEffect(() => {
@@ -70,8 +71,6 @@ export function Hero({ chatbotSlot }: HeroProps) {
     else prev();
   }
 
-  const slide = heroSlides[active];
-
   return (
     <section
       aria-roledescription="carousel"
@@ -81,7 +80,8 @@ export function Hero({ chatbotSlot }: HeroProps) {
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
     >
-      {/* Every slide stays mounted so switching is a crossfade, not a reload. */}
+      {/* Every slide stays mounted so switching is a crossfade, not a reload.
+          Only the photograph changes - the heading over it is fixed. */}
       <div className="absolute inset-0 -z-20">
         {heroSlides.map((item, i) => (
           <div
@@ -110,35 +110,28 @@ export function Hero({ chatbotSlot }: HeroProps) {
       <div className="hero-shade--side absolute inset-0 -z-10" />
       <div className="hero-shade--edges absolute inset-0 -z-10" />
 
-      <Container className="relative z-10">
+      <Container className="relative z-10 py-20 sm:py-24 lg:py-16">
         <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-12">
-          <div className="text-center lg:col-span-7 lg:text-left">
-            {/* Only the copy is keyed on `active`, so it replays the entrance
-                animation per slide. The CTAs below are identical on every
-                slide and stay mounted - remounting them would drop :hover
-                (and any in-flight click) every time the carousel advances. */}
-            <div
-              key={active}
-              className="animate-hero-in motion-reduce:animate-none"
-            >
-              <h1 className="hero-title font-display text-3xl font-extrabold text-white sm:text-4xl lg:text-5xl">
-                {slide.headline.map((line) => (
-                  <span key={line} className="block">
-                    {line}
-                  </span>
-                ))}
-              </h1>
+          {/* Static copy: it animates in once on mount and then stays put, so
+              nothing re-animates or reflows as the background rotates. */}
+          <div className="animate-hero-in text-center motion-reduce:animate-none lg:col-span-7 lg:text-left">
+            <h1 className="hero-title font-display font-extrabold text-white">
+              {heroHeading.headline.map((line) => (
+                <span key={line} className="block">
+                  {line}
+                </span>
+              ))}
+            </h1>
 
-              <p className="hero-lede mx-auto mt-6 max-w-xl text-base leading-relaxed font-medium text-white/95 sm:text-lg lg:mx-0">
-                {slide.description}
-              </p>
-            </div>
+            <p className="hero-lede mx-auto mt-5 max-w-xl leading-relaxed font-medium text-white/95 sm:mt-6 lg:mx-0">
+              {heroHeading.description}
+            </p>
 
-            <div className="animate-hero-in mt-9 flex flex-wrap items-center justify-center gap-4 motion-reduce:animate-none lg:justify-start">
+            <div className="mt-8 flex flex-wrap items-center justify-center gap-4 sm:mt-9 lg:justify-start">
               <span className="cta-spin">
                 <Button
                   href={heroCtas.primary.href}
-                  className="bg-brand px-7 py-3.5 font-semibold hover:bg-brand-dark"
+                  className="bg-brand px-6 py-3.5 font-semibold hover:bg-brand-dark sm:px-7"
                 >
                   {heroCtas.primary.label}
                 </Button>
@@ -147,7 +140,7 @@ export function Hero({ chatbotSlot }: HeroProps) {
                 <Button
                   href={heroCtas.secondary.href}
                   variant="secondary"
-                  className="border-white bg-white px-7 py-3.5 font-semibold text-slate-900 hover:bg-slate-100"
+                  className="border-white bg-white px-6 py-3.5 font-semibold text-slate-900 hover:bg-slate-100 sm:px-7"
                 >
                   {heroCtas.secondary.label}
                 </Button>
@@ -163,11 +156,14 @@ export function Hero({ chatbotSlot }: HeroProps) {
         </div>
       </Container>
 
+      {/* Arrows are pointer affordances and would sit on top of the copy on a
+          narrow screen, so they start at `sm`. Touch devices below that swipe,
+          and the dots stay available at every width. */}
       <button
         type="button"
         onClick={prev}
         aria-label="Previous slide"
-        className="absolute top-1/2 left-3 z-20 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/25 text-white backdrop-blur-sm transition-colors hover:bg-white/45 sm:left-6 sm:h-12 sm:w-12"
+        className="absolute top-1/2 left-3 z-20 hidden h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/25 text-white backdrop-blur-sm transition-colors hover:bg-white/45 sm:flex lg:left-6 lg:h-12 lg:w-12"
       >
         <ChevronLeft className="h-6 w-6" strokeWidth={2.5} />
       </button>
@@ -176,13 +172,13 @@ export function Hero({ chatbotSlot }: HeroProps) {
         type="button"
         onClick={next}
         aria-label="Next slide"
-        className="absolute top-1/2 right-3 z-20 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/25 text-white backdrop-blur-sm transition-colors hover:bg-white/45 sm:right-6 sm:h-12 sm:w-12"
+        className="absolute top-1/2 right-3 z-20 hidden h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/25 text-white backdrop-blur-sm transition-colors hover:bg-white/45 sm:flex lg:right-6 lg:h-12 lg:w-12"
       >
         <ChevronRight className="h-6 w-6" strokeWidth={2.5} />
       </button>
 
       {/* Dots line up with the copy column rather than the viewport centre. */}
-      <div className="absolute inset-x-0 bottom-7 z-20 sm:bottom-9">
+      <div className="absolute inset-x-0 bottom-6 z-20 sm:bottom-9">
         <Container>
           <div className="flex items-center justify-center gap-3 lg:justify-start">
             {heroSlides.map((item, i) => (
@@ -190,7 +186,7 @@ export function Hero({ chatbotSlot }: HeroProps) {
                 key={item.image}
                 type="button"
                 onClick={() => setActive(i)}
-                aria-label={`Go to slide ${i + 1}`}
+                aria-label={`Show image ${i + 1}`}
                 aria-current={i === active}
                 className={cn(
                   "h-2.5 rounded-full transition-all duration-300",

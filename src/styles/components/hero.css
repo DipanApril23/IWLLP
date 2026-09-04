@@ -1,11 +1,20 @@
 /* Hero carousel - src/components/home/Hero.tsx
    Holds the values that would otherwise be arbitrary Tailwind brackets
-   (calc heights, 7s durations, drop shadows). Layout and spacing stay as
-   utilities in the component, where they read better next to the markup. */
+   (calc heights, fluid type, 7s durations, drop shadows). Layout and spacing
+   stay as utilities in the component, where they read better next to the
+   markup. */
 
 .hero {
   block-size: calc(100svh - var(--header-height));
   min-block-size: 37.5rem;
+}
+
+/* Short viewports - landscape phones, split screens. A 600px floor there would
+   push everything below the hero off screen. */
+@media (max-height: 40rem) {
+  .hero {
+    min-block-size: 26rem;
+  }
 }
 
 /* Two shades over the photo: one across, so the copy on the left always has
@@ -29,6 +38,18 @@
   );
 }
 
+/* On phones the copy is centred over the photo, so shade the whole frame
+   evenly instead of favouring the left edge. */
+@media (width < 64rem) {
+  .hero-shade--side {
+    background-image: linear-gradient(
+      to right,
+      rgb(0 0 0 / 0.7),
+      rgb(0 0 0 / 0.6)
+    );
+  }
+}
+
 /* Slow Ken Burns push on whichever slide is showing. */
 .hero-image {
   transition: transform 7000ms ease-out;
@@ -38,12 +59,16 @@
   transform: scale(1.1);
 }
 
+/* Fluid type: scales continuously between a 320px phone and a 1280px desktop
+   rather than jumping at breakpoints. 28px -> 48px, and 16px -> 18px. */
 .hero-title {
+  font-size: clamp(1.75rem, 1.333rem + 2.083vw, 3rem);
   line-height: 1.12;
   filter: drop-shadow(0 2px 14px rgb(0 0 0 / 0.65));
 }
 
 .hero-lede {
+  font-size: clamp(1rem, 0.958rem + 0.208vw, 1.125rem);
   filter: drop-shadow(0 2px 10px rgb(0 0 0 / 0.7));
 }
 

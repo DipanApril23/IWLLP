@@ -9,10 +9,12 @@
 export { siteConfig, type SiteConfig } from "./site";
 export { mainNav, headerCta, type NavLink } from "./nav";
 export {
+  heroHeading,
   heroSlides,
   heroCtas,
   HERO_AUTOPLAY_MS,
   HERO_SWIPE_THRESHOLD_PX,
+  type HeroHeading,
   type HeroSlide,
   type HeroCta,
 } from "./hero";
