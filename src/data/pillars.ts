@@ -4,7 +4,6 @@ import pillarsContent from "./content/pillars.json";
 import pillarsConfig from "./config/pillars.json";
 import imagesConfig from "./config/images.json";
 import { interpolate } from "@/lib/text";
-import type { IconName } from "@/components/ui/Icon";
 
 export type PillarMember = {
   name: string;
@@ -19,8 +18,6 @@ export type PillarMember = {
 
 export const pillars = {
   ...pillarsContent,
-  // JSON widens string literals, so `icon` needs narrowing back to the union.
-  icon: pillarsContent.icon as IconName,
   members: pillarsContent.members.map(
     (member): PillarMember => ({
       ...member,

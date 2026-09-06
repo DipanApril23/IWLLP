@@ -128,7 +128,7 @@ export function PillarsCarousel({ members }: { members: PillarMember[] }) {
               />
             </div>
 
-            <h3 className="pillars__name font-display">{member.name}</h3>
+            <h4 className="pillars__name font-display">{member.name}</h4>
             <p className="pillars__years">{member.experience}</p>
             <p className="pillars__bio">{member.bio}</p>
           </article>

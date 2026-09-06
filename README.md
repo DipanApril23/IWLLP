@@ -37,7 +37,8 @@ src/
     contact/ContactForm.tsx  Client form (not wired to a backend yet)
   components/
     layout/                  Header, Footer, Container
-    home/                    Home sections (Hero, MissionVisionValues, WhatWeDo, Team, Pillars…)
+    home/                    Home sections (Hero, MissionVisionValues, WhatWeDo, Team…)
+                             Pillars renders inside Team, not as its own section
     ui/                      Primitives (Button, SectionHeading, Icon)
   data/
     content/*.json           Editable copy — every string on the site

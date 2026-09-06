@@ -23,7 +23,7 @@ export function MissionVisionValues() {
               <div className="mvv__shade" />
 
               <div className="mvv__body">
-                <h3 className="mvv__title font-display">{card.title}</h3>
+                <h2 className="mvv__title font-display">{card.title}</h2>
 
                 {/* Rule with the icon sitting on it, as in the original. The
                     rules are flex children so they split whatever width is

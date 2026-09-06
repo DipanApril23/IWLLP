@@ -9,38 +9,50 @@
    (portrait ring, gold foot, hover lift) and the track's card widths have to
    be exact divisions of the row for a whole card to land at every stop. */
 
+/* A subsection of "Our Team", not a section of its own, so it opens with a
+   hairline rather than another full header stack. The rule fades out at both
+   ends instead of stopping dead, which separates the two blocks without
+   drawing a hard line across the page. */
+.pillars {
+  margin-block-start: 3.25rem;
+  padding-block-start: 3rem;
+  border-block-start: 1px solid transparent;
+  border-image: linear-gradient(
+      to right,
+      rgb(148 163 184 / 0),
+      rgb(148 163 184 / 0.5),
+      rgb(148 163 184 / 0)
+    )
+    1;
+}
+
+@media (width >= 64rem) {
+  .pillars {
+    margin-block-start: 3rem;
+    padding-block-start: 3rem;
+  }
+}
+
 .pillars__head {
   max-inline-size: 52rem;
   margin-inline: auto;
   text-align: center;
 }
 
-.pillars__eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: clamp(1rem, 0.958rem + 0.208vw, 1.125rem);
-  font-style: italic;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-}
-
-.pillars__eyebrow-icon {
-  flex: none;
-}
-
+/* Deliberately smaller than the section's own h2. These people sit inside the
+   team introduced above, and two titles at the same size read as two sections
+   competing rather than one containing the other. */
 .pillars__title {
-  margin-block-start: 0.55rem;
-  font-size: clamp(1.875rem, 1.458rem + 2.083vw, 3rem);
-  line-height: 1.1;
-  letter-spacing: 0.01em;
+  font-size: clamp(1.5rem, 1.271rem + 1.146vw, 2.25rem);
+  line-height: 1.15;
+  letter-spacing: 0.02em;
 }
 
 .pillars__rule {
   display: block;
   inline-size: 3.5rem;
   block-size: 3px;
-  margin: 1.1rem auto 1.35rem;
+  margin: 0.9rem auto 1.15rem;
   border-radius: 9999px;
   background-image: linear-gradient(
     to right,

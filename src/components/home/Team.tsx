@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Container } from "@/components/layout/Container";
 import { Icon } from "@/components/ui/Icon";
+import { Pillars } from "./Pillars";
 import { team } from "@/data";
 import { parseEmphasis } from "@/lib/text";
 
@@ -72,6 +73,10 @@ export function Team() {
             <figcaption className="team__caption">{team.caption}</figcaption>
           </figure>
         </div>
+
+        {/* The individual members. Part of this section rather than one of
+            their own - see the note on <Pillars>. */}
+        <Pillars />
       </Container>
     </section>
   );
