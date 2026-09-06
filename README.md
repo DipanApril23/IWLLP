@@ -37,7 +37,7 @@ src/
     contact/ContactForm.tsx  Client form (not wired to a backend yet)
   components/
     layout/                  Header, Footer, Container
-    home/                    Home sections (Hero, MissionVisionValues, WhatWeDo, Team…)
+    home/                    Home sections (Hero, MissionVisionValues, WhatWeDo, Team, Pillars…)
     ui/                      Primitives (Button, SectionHeading, Icon)
   data/
     content/*.json           Editable copy — every string on the site
@@ -100,12 +100,13 @@ There are two base URLs because there are two directories on the account:
 | Mission / Vision / Values panels | `data/content/mission-vision-values.json` |
 | "What We Do" band and its cards | `data/content/what-we-do.json` |
 | "Our Team" band, photo and caption | `data/content/team.json` |
+| "The Pillars" member cards | `data/content/pillars.json` |
 | Why-choose-us points, closing CTA | `data/content/home.json` |
 | Service list and detail pages | `data/content/services.json` |
 | About / Contact page copy, form fields | `data/content/about.json`, `contact.json` |
 | Footer column titles, copyright | `data/content/footer.json` |
 | Image host | `data/config/images.json` |
-| Carousel timings | `data/config/hero.json`, `what-we-do.json` |
+| Carousel timings | `data/config/hero.json`, `what-we-do.json`, `pillars.json` |
 
 ## Still to do
 
@@ -114,7 +115,19 @@ There are two base URLs because there are two directories on the account:
 - [ ] Wire `ContactForm` to a backend (API route, Resend/Formspree, or CRM).
 - [ ] Add a mobile nav menu — below `md` the header shows only the logo.
 - [ ] Fill the hero's reserved `chatbotSlot` with the chatbot wizard.
-- [ ] Bring over remaining pages/sections (NRI, Careers, testimonials, individual team bios).
+- [ ] Bring over remaining pages/sections (NRI, Careers, testimonials).
+- [ ] Complete three Pillars bios. The live site truncates Asish Mittal,
+      Susanta Dhar and Samrat Dutta mid-sentence ("…multi-sector…",
+      "…anti-te…", "…investigat…"), so `pillars.json` carries only the part
+      that was readable, cut at the last complete clause rather than guessed at.
+- [ ] Decide what "Know More" should do. The original puts that button on every
+      Pillars card; it is left out here because there is nothing behind it yet —
+      the bios are one or two sentences. Supply longer profiles and it can open
+      a dialog, or become `/team/[slug]` pages built the way `/services/[slug]`
+      already is.
+- [ ] Deepak Kumar Dutta has a portrait on the host
+      (`images/members/Mr-Deepak-Kumar-Dutta-500x500.webp`) but does not appear
+      in the live carousel and has no bio, so he is not in `pillars.json`.
 - [ ] Add a real Open Graph image.
 
 ## Scripts

@@ -1,0 +1,64 @@
+{
+  "eyebrow": "Our Team",
+  "title": "THE PILLARS",
+  "icon": "landmark",
+  "description": "Over the years, we have built a legacy of success based on **integrity, dedication, and relentless advocacy**. Our proven track record reflects our ability to navigate complex legal challenges and deliver favourable outcomes for our clients, while maintaining the highest standards of professionalism and client service.",
+  "members": [
+    {
+      "name": "Md Asim Ali",
+      "years": 37,
+      "image": "Mr-Asim-Ali-500x500.webp",
+      "bio": "Investigated various criminal cases. Possesses sound knowledge about court proceedings."
+    },
+    {
+      "name": "Faiyaz Ahmed",
+      "years": 37,
+      "image": "Faiyaz-Ahmed-500x500.webp",
+      "bio": "Retired as Deputy Commissioner of Police (DCP) after 37+ years with the Kolkata Police."
+    },
+    {
+      "name": "Amiya Kumar Lahiri",
+      "years": 37,
+      "image": "Amiya-Kumar-Lahiri-500x500.webp",
+      "bio": "Served with the Kolkata Police for over 37 years and retired as Assistant Commissioner of Police."
+    },
+    {
+      "name": "Bhaktipad Mishra",
+      "years": 39,
+      "image": "Bhakti-Pad-Mishra-500x500.webp",
+      "bio": "Served over 39 years with the Government of India in forensic science."
+    },
+    {
+      "name": "Asish Mittal",
+      "years": 30,
+      "image": "Ashish-Mittal-500x500.webp",
+      "bio": "Seasoned entrepreneur with over 30 years of experience in hospitality and real estate."
+    },
+    {
+      "name": "Susanta Dhar",
+      "years": 40,
+      "image": "Susanta_Dhar.webp",
+      "bio": "Former Assistant Commissioner of Police with extensive expertise in criminal investigations."
+    },
+    {
+      "name": "Samrat Dutta",
+      "years": 35,
+      "image": "Samrat_Dutta.webp",
+      "bio": "Former Assistant Commissioner of Police with extensive expertise in crime administration."
+    },
+    {
+      "name": "Sujit Chakraborty",
+      "years": 37,
+      "image": "Mr-Sujit-Chakraborty-500x500.webp",
+      "bio": "Noted for his prowess in crime detection during his tenure in the Detective Department."
+    }
+  ],
+  "labels": {
+    "region": "Our team members",
+    "experience": "{years}+ Years of Experience",
+    "portraitAlt": "Portrait of {name}",
+    "previous": "Previous team members",
+    "next": "Next team members",
+    "showMember": "Show {name}"
+  }
+}

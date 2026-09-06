@@ -39,6 +39,12 @@ export {
   type MissionVisionValuesCard,
 } from "./mission-vision-values";
 export { team } from "./team";
+export {
+  pillars,
+  PILLARS_ADVANCE_MS,
+  PILLARS_RESUME_MS,
+  type PillarMember,
+} from "./pillars";
 export { aboutContent } from "./about";
 export { contactContent, type ContactField } from "./contact";
 export { footerContent, footerCopyright } from "./footer";
