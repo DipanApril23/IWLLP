@@ -76,7 +76,9 @@
 }
 
 .what-we-do__card {
-  flex: 0 0 82%;
+  /* One whole card at a time on a phone. A partial card sliced off at the
+     edge looked like a rendering fault rather than an affordance. */
+  flex: 0 0 100%;
   scroll-snap-align: start;
   display: flex;
   flex-direction: column;
@@ -87,17 +89,19 @@
   transition: background-color 250ms ease;
 }
 
-/* Card widths per breakpoint. The last step is the one that makes the whole
-   row fit: five cards and the four 1px gaps between them. */
+/* Card widths per breakpoint. Each is an exact division of the track once its
+   hairline gaps are subtracted, so a whole number of cards always fills the
+   width and none is ever cut in half: 2 cards share 1 gap, 3 share 2, 5 share
+   4. The last step is what makes the desktop row fit with nothing to scroll. */
 @media (width >= 40rem) {
   .what-we-do__card {
-    flex-basis: 48%;
+    flex-basis: calc((100% - 1px) / 2);
   }
 }
 
 @media (width >= 64rem) {
   .what-we-do__card {
-    flex-basis: 32%;
+    flex-basis: calc((100% - 2px) / 3);
   }
 }
 
