@@ -1,11 +1,10 @@
 /* "Our Team" band - src/components/home/Team.tsx
 
-   Keeps the original section's shape - eyebrow, title, rule with an icon on
-   it, one centred paragraph, then the group photograph - and adds only what
-   the original left loose: a measure on the paragraph so it stops running the
-   full width, and a frame that turns the bare photo into a figure with a
-   caption. In CSS rather than utilities because the frame's layers (accent
-   edge, hover zoom, caption strip) are coupled to each other. */
+   Copy on one side, the group photograph on the other. Stacking the two full
+   width made the section twice as tall as it had anything to say, so most of
+   it was empty space; side by side they set each other's height instead.
+   In CSS rather than utilities because the frame's layers (accent edge, hover
+   zoom, caption strip) are coupled to each other. */
 
 /* Warm halo under the dark services band above, so the white does not start
    flat. Sits behind the content but over the section's own background. */
@@ -14,7 +13,7 @@
   position: absolute;
   inset-inline: 0;
   inset-block-start: 0;
-  block-size: 20rem;
+  block-size: 15rem;
   z-index: -1;
   background-image: radial-gradient(
     58% 100% at 50% 0%,
@@ -23,85 +22,117 @@
   );
 }
 
-.team__head {
-  max-inline-size: 52rem;
-  margin-inline: auto;
-  text-align: center;
+.team__grid {
+  display: grid;
+  align-items: center;
+  gap: 2.5rem;
+}
+
+/* Two columns only once the narrower one can still hold a readable line. The
+   photograph keeps the larger share - it is fourteen people, and shrinking it
+   to half the row is what makes a group photo unreadable - but only just: at
+   5fr/7fr the paragraph fell to forty characters a line and ran ten lines
+   deep, which reads as a newspaper column rather than a lede. */
+@media (width >= 64rem) {
+  .team__grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+    gap: 3rem;
+  }
+}
+
+/* At xl the container has hit its own max width, so the row finally has the
+   room to give the photograph the larger share without squeezing the lede. */
+@media (width >= 80rem) {
+  .team__grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr);
+    gap: 3.5rem;
+  }
 }
 
 .team__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
   font-size: clamp(1rem, 0.958rem + 0.208vw, 1.125rem);
   font-style: italic;
   font-weight: 600;
   letter-spacing: 0.06em;
 }
 
-/* Fluid type, matching the services band: 1.875rem -> 3rem. */
+.team__eyebrow-icon {
+  flex: none;
+}
+
 .team__title {
-  margin-block-start: 0.4rem;
+  margin-block-start: 0.55rem;
   font-size: clamp(1.875rem, 1.458rem + 2.083vw, 3rem);
   line-height: 1.1;
   letter-spacing: 0.01em;
 }
 
+/* The rule the original centred under the heading, kept as a short gold bar
+   now that the column is left-aligned and a full-width hairline would only
+   cut the copy off from its own paragraph. */
 .team__rule {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-  inline-size: 100%;
-  max-inline-size: 44rem;
-  margin: 1.5rem auto 1.75rem;
-}
-
-/* The rules taper out towards the page edges instead of stopping dead, which
-   is what stops a full-width hairline from cutting the section in two. */
-.team__rule-line {
-  flex: 1;
-  block-size: 1px;
+  display: block;
+  inline-size: 3.5rem;
+  block-size: 3px;
+  margin-block: 1.1rem 1.35rem;
+  border-radius: 9999px;
   background-image: linear-gradient(
     to right,
-    rgb(203 213 225 / 0),
-    rgb(148 163 184 / 0.9)
+    var(--color-accent),
+    rgb(207 167 88 / 0.25)
   );
-}
-
-.team__rule-line:last-child {
-  background-image: linear-gradient(
-    to left,
-    rgb(203 213 225 / 0),
-    rgb(148 163 184 / 0.9)
-  );
-}
-
-.team__icon {
-  flex: none;
 }
 
 .team__lede {
-  font-size: clamp(1rem, 0.958rem + 0.208vw, 1.125rem);
-  line-height: 1.8;
+  font-size: clamp(1rem, 0.979rem + 0.104vw, 1.0625rem);
+  line-height: 1.75;
   color: #475569;
   text-wrap: pretty;
+}
+
+.team__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-block-start: 1.6rem;
+}
+
+.team__tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.3rem 0.7rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 9999px;
+  background-color: #ffffff;
+  color: #334155;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.team__tag::before {
+  content: "";
+  block-size: 0.3rem;
+  inline-size: 0.3rem;
+  border-radius: 9999px;
+  background-color: var(--color-accent);
 }
 
 .team__frame {
   position: relative;
   isolation: isolate;
   overflow: hidden;
-  max-inline-size: 58rem;
-  margin: 3rem auto 0;
   border-radius: 1rem;
   background-color: #ffffff;
   box-shadow:
     0 0 0 1px rgb(226 232 240 / 1),
-    0 30px 60px -34px rgb(15 23 42 / 0.55);
-}
-
-@media (width >= 40rem) {
-  .team__frame {
-    margin-block-start: 3.5rem;
-  }
+    0 28px 55px -32px rgb(15 23 42 / 0.6);
 }
 
 /* Gold edge along the top of the frame, tying the photograph to the palette
@@ -139,63 +170,13 @@
 }
 
 .team__caption {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.9rem;
-  padding: 1.1rem 1.5rem;
+  padding: 0.8rem 1.25rem;
   border-block-start: 1px solid #e2e8f0;
   background-color: #f8fafc;
-  text-align: center;
-}
-
-/* Caption on one side, disciplines on the other, but only once the row has
-   the width to hold both without either wrapping mid-phrase. */
-@media (width >= 48rem) {
-  .team__caption {
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1.5rem;
-    text-align: start;
-  }
-}
-
-.team__caption-text {
-  font-size: 0.875rem;
+  font-size: 0.8125rem;
   font-style: italic;
   color: #64748b;
-}
-
-.team__tags {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 0.45rem;
-}
-
-.team__tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  padding: 0.3rem 0.7rem;
-  border: 1px solid #e2e8f0;
-  border-radius: 9999px;
-  background-color: #ffffff;
-  color: #334155;
-  font-size: 0.6875rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  white-space: nowrap;
-}
-
-.team__tag::before {
-  content: "";
-  block-size: 0.3rem;
-  inline-size: 0.3rem;
-  border-radius: 9999px;
-  background-color: var(--color-accent);
+  text-align: center;
 }
 
 @media (prefers-reduced-motion: reduce) {
