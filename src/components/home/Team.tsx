@@ -7,8 +7,12 @@ import { parseEmphasis } from "@/lib/text";
 export function Team() {
   const lede = parseEmphasis(team.description);
 
+  // Top padding is deliberately shorter than the bottom. The dark services
+  // band above already ends with its own, and paying both in full left the
+  // heading stranded a long way down an empty white page; the bottom keeps
+  // its full height to separate this section from the one below.
   return (
-    <section className="team relative isolate bg-white py-16 sm:py-20 lg:py-24">
+    <section className="team relative isolate bg-white pt-10 pb-16 sm:pt-12 sm:pb-20 lg:pt-14 lg:pb-24">
       <Container>
         {/* Copy beside the photograph rather than stacked above it. A centred
             stack put a full-width paragraph and a full-width picture end to
