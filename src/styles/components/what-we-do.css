@@ -1,41 +1,43 @@
 /* "Our Services / What We Do" band - src/components/home/WhatWeDo.tsx
 
-   The card panel's layout lives here rather than in utilities because the
-   dividers depend on it: the grid uses a 1px gap over a tinted panel
-   background, so the gap itself draws the hairlines. That stays correct at
-   one, two, three or five columns, where per-card borders would leave stray
-   edges every time the grid wraps. */
+   The card track's layout lives here rather than in utilities because the
+   dividers depend on it: the row uses a 1px gap over a tinted track
+   background, so the gap itself draws the hairlines. That stays correct
+   however many cards are in view, where per-card borders would leave a stray
+   edge at either end. */
 
+/* The wash is neutral black, not navy. Tinting it with slate (rgb 2 6 23) at
+   high alpha turned the whole band blue and read as a flat colour rather than
+   a photograph. The horizontal pass carries the contrast for the copy on the
+   left and thins out to the right; the vertical pass only darkens the top and
+   bottom edges and stays clear through the middle, where the picture needs to
+   read. */
 .what-we-do__shade {
-  /* Two washes. The horizontal one carries the contrast for the copy on the
-     left and thins out to the right; the vertical one only darkens the top and
-     bottom edges and stays clear through the middle, which is where the
-     photograph actually needs to read. Stacking two heavy gradients composites
-     to ~0.7 alpha and buries the image. */
   background-image: linear-gradient(
       to right,
-      rgb(2 6 23 / 0.92),
-      rgb(2 6 23 / 0.55) 50%,
-      rgb(2 6 23 / 0.2)
+      rgb(0 0 0 / 0.9),
+      rgb(0 0 0 / 0.55) 50%,
+      rgb(0 0 0 / 0.2)
     ),
     linear-gradient(
       to bottom,
-      rgb(2 6 23 / 0.4),
-      rgb(2 6 23 / 0) 35%,
-      rgb(2 6 23 / 0) 60%,
-      rgb(2 6 23 / 0.5)
+      rgb(0 0 0 / 0.4),
+      rgb(0 0 0 / 0) 35%,
+      rgb(0 0 0 / 0) 60%,
+      rgb(0 0 0 / 0.5)
     );
 }
 
-/* Below lg the copy is not confined to the left half, so shade evenly - the
-   photograph gives way to legibility here. */
+/* Below lg the copy runs the full width, so the wash is even rather than
+   left-weighted - but kept light enough that the photograph still shows
+   through, which is what it does on the original site's phone view. */
 @media (width < 64rem) {
   .what-we-do__shade {
     background-image: linear-gradient(
       to bottom,
-      rgb(2 6 23 / 0.82),
-      rgb(2 6 23 / 0.68) 45%,
-      rgb(2 6 23 / 0.86)
+      rgb(0 0 0 / 0.74),
+      rgb(0 0 0 / 0.5) 40%,
+      rgb(0 0 0 / 0.68)
     );
   }
 }
@@ -51,67 +53,63 @@
   font-size: clamp(1rem, 0.958rem + 0.208vw, 1.125rem);
 }
 
-.what-we-do__panel {
-  display: grid;
-  grid-template-columns: 1fr;
+/* One horizontal track at every width. Below xl the cards overflow and the
+   component scrolls them; at xl five card widths plus their four hairlines add
+   up to exactly 100%, so nothing overflows and the auto-scroll stands down.
+   One layout beats a grid and a carousel that have to be kept in step. */
+.what-we-do__track {
+  display: flex;
   gap: 1px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
   background-color: rgb(255 255 255 / 0.14);
   border-radius: 0.9rem;
-  overflow: hidden;
   box-shadow: 0 24px 60px -30px rgb(0 0 0 / 0.9);
   backdrop-filter: blur(10px);
 }
 
-@media (width >= 40rem) {
-  .what-we-do__panel {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  /* Five cards over two columns leaves the last one alone in a half-width
-     cell; let it run the full width instead of hanging off the edge. */
-  .what-we-do__card:last-child {
-    grid-column: 1 / -1;
-  }
-}
-
-@media (width >= 64rem) {
-  .what-we-do__panel {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-  .what-we-do__card:last-child {
-    grid-column: auto;
-  }
-}
-
-@media (width >= 80rem) {
-  .what-we-do__panel {
-    grid-template-columns: repeat(5, 1fr);
-  }
+.what-we-do__track::-webkit-scrollbar {
+  display: none;
 }
 
 .what-we-do__card {
+  flex: 0 0 82%;
+  scroll-snap-align: start;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 2rem 1.5rem;
   text-align: center;
-  background-color: rgb(15 23 42 / 0.82);
-  transition:
-    background-color 250ms ease,
-    transform 250ms ease;
+  background-color: rgb(15 23 42 / 0.86);
+  transition: background-color 250ms ease;
+}
+
+/* Card widths per breakpoint. The last step is the one that makes the whole
+   row fit: five cards and the four 1px gaps between them. */
+@media (width >= 40rem) {
+  .what-we-do__card {
+    flex-basis: 48%;
+  }
+}
+
+@media (width >= 64rem) {
+  .what-we-do__card {
+    flex-basis: 32%;
+  }
+}
+
+@media (width >= 80rem) {
+  .what-we-do__card {
+    flex-basis: calc((100% - 4px) / 5);
+    padding-inline: 1.15rem;
+  }
 }
 
 .what-we-do__card:hover {
-  background-color: rgb(30 41 59 / 0.92);
-}
-
-/* Five columns leave each card narrow; give the copy back some width. Must
-   come after the `padding` shorthand above, which would otherwise win. */
-@media (width >= 80rem) {
-  .what-we-do__card {
-    padding-inline: 1.15rem;
-  }
+  background-color: rgb(30 41 59 / 0.94);
 }
 
 .what-we-do__icon {
@@ -164,10 +162,40 @@
   inline-size: 2.5rem;
 }
 
+/* Progress dots, shown only while the track actually scrolls. */
+.what-we-do__dots {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1.25rem;
+}
+
+@media (width >= 80rem) {
+  .what-we-do__dots {
+    display: none;
+  }
+}
+
+.what-we-do__dot {
+  block-size: 0.4rem;
+  inline-size: 0.4rem;
+  border-radius: 9999px;
+  background-color: rgb(255 255 255 / 0.35);
+  transition:
+    inline-size 250ms ease,
+    background-color 250ms ease;
+}
+
+.what-we-do__dot[aria-current="true"] {
+  inline-size: 1.5rem;
+  background-color: var(--color-accent);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .what-we-do__card,
   .what-we-do__icon,
-  .what-we-do__chip::after {
+  .what-we-do__chip::after,
+  .what-we-do__dot {
     transition: none;
   }
 

@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { Container } from "@/components/layout/Container";
 import { Button } from "@/components/ui/Button";
-import { Icon } from "@/components/ui/Icon";
+import { WhatWeDoCards } from "./WhatWeDoCards";
 import { whatWeDo } from "@/data";
 import { parseEmphasis } from "@/lib/text";
 
@@ -9,7 +9,7 @@ export function WhatWeDo() {
   const lede = parseEmphasis(whatWeDo.description);
 
   return (
-    <section className="what-we-do relative isolate overflow-hidden bg-slate-950">
+    <section className="what-we-do relative isolate overflow-hidden bg-black">
       {whatWeDo.background.image ? (
         <Image
           src={whatWeDo.background.image}
@@ -59,26 +59,7 @@ export function WhatWeDo() {
           </div>
         </div>
 
-        {/* The 1px gap plus the panel's own background is what draws the
-            hairlines between cards - it stays correct at any column count,
-            unlike per-card borders on a wrapping grid. */}
-        <div className="what-we-do__panel mt-14 sm:mt-16">
-          {whatWeDo.cards.map((card) => (
-            <article key={card.title} className="what-we-do__card">
-              <Icon
-                name={card.icon}
-                className="what-we-do__icon text-accent h-8 w-8"
-                strokeWidth={1.75}
-              />
-
-              <h3 className="what-we-do__chip">{card.title}</h3>
-
-              <p className="mt-4 text-sm leading-relaxed text-white/75">
-                {card.description}
-              </p>
-            </article>
-          ))}
-        </div>
+        <WhatWeDoCards cards={whatWeDo.cards} />
       </Container>
     </section>
   );
