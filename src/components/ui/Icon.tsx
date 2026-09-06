@@ -7,6 +7,7 @@ import {
   Eye,
   Target,
   Gem,
+  Landmark,
   type LucideIcon,
 } from "lucide-react";
 
@@ -20,7 +21,8 @@ export type IconName =
   | "user-check"
   | "eye"
   | "target"
-  | "gem";
+  | "gem"
+  | "landmark";
 
 const icons: Record<IconName, LucideIcon> = {
   search: Search,
@@ -31,6 +33,7 @@ const icons: Record<IconName, LucideIcon> = {
   eye: Eye,
   target: Target,
   gem: Gem,
+  landmark: Landmark,
 };
 
 export function Icon({

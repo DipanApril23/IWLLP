@@ -1,0 +1,19 @@
+{
+  "eyebrow": "Team",
+  "title": "OUR TEAM",
+  "icon": "landmark",
+  "description": "Innerwork Advisors LLP is supported by a **multidisciplinary team of professionals**, including directors, partners, and experienced professionals across advisory, compliance, operations, and support functions. Our team combines **expertise, integrity, and a shared commitment** to delivering reliable and practical solutions for clients across sectors. We believe that exceptional outcomes are driven by dedicated professionals — working with accountability, collaboration, and professionalism.",
+  "photo": {
+    "image": "team-group-photo.ae0689cbcf1059b8b0a5.jpeg",
+    "alt": "The directors, partners and professionals of Innerwork Advisors LLP photographed together at the firm's office",
+    "width": 1280,
+    "height": 852
+  },
+  "caption": "The team at our {city} office",
+  "disciplines": [
+    "Advisory",
+    "Compliance",
+    "Operations",
+    "Support"
+  ]
+}

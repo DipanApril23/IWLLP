@@ -37,7 +37,7 @@ src/
     contact/ContactForm.tsx  Client form (not wired to a backend yet)
   components/
     layout/                  Header, Footer, Container
-    home/                    Home sections (Hero, MissionVisionValues, WhatWeDo…)
+    home/                    Home sections (Hero, MissionVisionValues, WhatWeDo, Team…)
     ui/                      Primitives (Button, SectionHeading, Icon)
   data/
     content/*.json           Editable copy — every string on the site
@@ -83,6 +83,13 @@ Nothing is bundled: every image is served from the host in
 filename. `next/image` optimises them, so the remote host is allow-listed in
 `next.config.ts`. Moving to a different host or CDN is one line.
 
+There are two base URLs because there are two directories on the account:
+
+| Key | Directory | Holds |
+|---|---|---|
+| `baseUrl` | `images/` | Photographs uploaded for this rebuild — hero slides, panels, section backgrounds |
+| `mediaBaseUrl` | `static/media/` | Assets the original Create React App build left behind, such as the team group photo |
+
 ## Editing content
 
 | Change | File |
@@ -92,6 +99,7 @@ filename. `next/image` optimises them, so the remote host is allow-listed in
 | Hero heading, slide images, CTAs | `data/content/hero.json` |
 | Mission / Vision / Values panels | `data/content/mission-vision-values.json` |
 | "What We Do" band and its cards | `data/content/what-we-do.json` |
+| "Our Team" band, photo and caption | `data/content/team.json` |
 | Why-choose-us points, closing CTA | `data/content/home.json` |
 | Service list and detail pages | `data/content/services.json` |
 | About / Contact page copy, form fields | `data/content/about.json`, `contact.json` |
@@ -106,7 +114,7 @@ filename. `next/image` optimises them, so the remote host is allow-listed in
 - [ ] Wire `ContactForm` to a backend (API route, Resend/Formspree, or CRM).
 - [ ] Add a mobile nav menu — below `md` the header shows only the logo.
 - [ ] Fill the hero's reserved `chatbotSlot` with the chatbot wizard.
-- [ ] Bring over remaining pages/sections (NRI, Careers, testimonials, team bios).
+- [ ] Bring over remaining pages/sections (NRI, Careers, testimonials, individual team bios).
 - [ ] Add a real Open Graph image.
 
 ## Scripts

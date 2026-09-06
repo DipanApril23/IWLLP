@@ -38,6 +38,7 @@ export {
   missionVisionValues,
   type MissionVisionValuesCard,
 } from "./mission-vision-values";
+export { team } from "./team";
 export { aboutContent } from "./about";
 export { contactContent, type ContactField } from "./contact";
 export { footerContent, footerCopyright } from "./footer";
