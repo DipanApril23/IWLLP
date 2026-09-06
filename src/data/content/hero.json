@@ -1,6 +1,9 @@
 {
   "heading": {
-    "headline": ["READY TO RESOLVE", "READY TO UNCOVER"],
+    "headline": [
+      "READY TO RESOLVE",
+      "READY TO UNCOVER"
+    ],
     "description": "Whether you need security services or investigative assistance, we're ready to help. Schedule a consultation and take the first steps towards resolution and truth."
   },
   "slides": [
@@ -18,7 +21,19 @@
     }
   ],
   "ctas": {
-    "primary": { "label": "Book a Consultation", "href": "/contact" },
-    "secondary": { "label": "Contact Us", "href": "/contact" }
+    "primary": {
+      "label": "Book a Consultation",
+      "href": "/contact"
+    },
+    "secondary": {
+      "label": "Contact Us",
+      "href": "/contact"
+    }
+  },
+  "labels": {
+    "region": "{name} highlights",
+    "previousSlide": "Previous slide",
+    "nextSlide": "Next slide",
+    "showSlide": "Show image {number}"
   }
 }

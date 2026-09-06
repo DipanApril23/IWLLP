@@ -26,7 +26,7 @@ export function WhatWeDo() {
 
       <Container className="relative z-10 py-20 sm:py-24 lg:py-28">
         <div className="max-w-2xl">
-          <p className="text-accent text-sm font-semibold tracking-[0.2em] uppercase">
+          <p className="what-we-do__eyebrow text-accent text-sm font-semibold uppercase">
             {whatWeDo.eyebrow}
           </p>
 

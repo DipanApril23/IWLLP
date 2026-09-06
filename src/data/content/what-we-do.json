@@ -2,7 +2,10 @@
   "eyebrow": "Our Services",
   "title": "WHAT WE DO",
   "description": "When your **personal safety or peace of mind is at risk**, you need a **trusted security and investigative team** that will work relentlessly on your behalf. Our firm specializes in safeguarding our clients, providing **clarity, confidence and discreet support** when you need it most.",
-  "cta": { "label": "Know More", "href": "/services" },
+  "cta": {
+    "label": "Know More",
+    "href": "/services"
+  },
   "background": {
     "image": "our-services.webp",
     "alt": ""
@@ -33,5 +36,9 @@
       "title": "Surveillance",
       "description": "Demo copy — covert and overt field operatives gathering verifiable, court-admissible evidence where a case demands it."
     }
-  ]
+  ],
+  "labels": {
+    "region": "Our services",
+    "showCard": "Show {title}"
+  }
 }

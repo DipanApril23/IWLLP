@@ -2,6 +2,7 @@
 // the home page.
 import whatWeDoContent from "./content/what-we-do.json";
 import imagesConfig from "./config/images.json";
+import whatWeDoConfig from "./config/what-we-do.json";
 import type { ServiceIcon } from "./services";
 
 export type WhatWeDoCard = {
@@ -27,3 +28,9 @@ export const whatWeDo = {
       : "",
   },
 };
+
+/** How long a card holds before the track advances. */
+export const WHAT_WE_DO_ADVANCE_MS = whatWeDoConfig.advanceMs;
+
+/** How long to leave the track alone after someone scrolls or taps it. */
+export const WHAT_WE_DO_RESUME_MS = whatWeDoConfig.resumeAfterInteractionMs;

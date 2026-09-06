@@ -10,9 +10,10 @@ import {
   HERO_SWIPE_THRESHOLD_PX,
   heroCtas,
   heroHeading,
+  heroLabels,
   heroSlides,
-  siteConfig,
 } from "@/data";
+import { interpolate } from "@/lib/text";
 import { cn } from "@/lib/utils";
 
 type HeroProps = {
@@ -74,7 +75,7 @@ export function Hero({ chatbotSlot }: HeroProps) {
   return (
     <section
       aria-roledescription="carousel"
-      aria-label={`${siteConfig.shortName} highlights`}
+      aria-label={heroLabels.region}
       className="hero relative isolate flex w-full items-center overflow-hidden bg-slate-900"
       onKeyDown={handleKeyDown}
       onTouchStart={handleTouchStart}
@@ -162,7 +163,7 @@ export function Hero({ chatbotSlot }: HeroProps) {
       <button
         type="button"
         onClick={prev}
-        aria-label="Previous slide"
+        aria-label={heroLabels.previousSlide}
         className="absolute top-1/2 left-3 z-20 hidden h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/25 text-white backdrop-blur-sm transition-colors hover:bg-white/45 sm:flex lg:left-6 lg:h-12 lg:w-12"
       >
         <ChevronLeft className="h-6 w-6" strokeWidth={2.5} />
@@ -171,7 +172,7 @@ export function Hero({ chatbotSlot }: HeroProps) {
       <button
         type="button"
         onClick={next}
-        aria-label="Next slide"
+        aria-label={heroLabels.nextSlide}
         className="absolute top-1/2 right-3 z-20 hidden h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/25 text-white backdrop-blur-sm transition-colors hover:bg-white/45 sm:flex lg:right-6 lg:h-12 lg:w-12"
       >
         <ChevronRight className="h-6 w-6" strokeWidth={2.5} />
@@ -186,7 +187,7 @@ export function Hero({ chatbotSlot }: HeroProps) {
                 key={item.image}
                 type="button"
                 onClick={() => setActive(i)}
-                aria-label={`Show image ${i + 1}`}
+                aria-label={interpolate(heroLabels.showSlide, { number: i + 1 })}
                 aria-current={i === active}
                 className={cn(
                   "h-2.5 rounded-full transition-all duration-300",

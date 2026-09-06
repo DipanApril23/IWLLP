@@ -11,6 +11,8 @@
 import heroContent from "./content/hero.json";
 import heroConfig from "./config/hero.json";
 import imagesConfig from "./config/images.json";
+import { siteConfig } from "./site";
+import { interpolate } from "@/lib/text";
 
 /** The headline and lede. Fixed - only the photograph behind them rotates. */
 export type HeroHeading = {
@@ -39,6 +41,16 @@ export const heroSlides: HeroSlide[] = heroContent.slides.map((slide) => ({
 
 export const heroCtas: { primary: HeroCta; secondary: HeroCta } =
   heroContent.ctas;
+
+/** Accessibility labels for the carousel controls. `region` is filled here
+ *  because it only needs site.json; `showSlide` keeps its `{number}` token for
+ *  the component to fill per dot. */
+export const heroLabels = {
+  ...heroContent.labels,
+  region: interpolate(heroContent.labels.region, {
+    name: siteConfig.shortName,
+  }),
+};
 
 /** How long each slide stays on screen before the carousel advances. */
 export const HERO_AUTOPLAY_MS = heroConfig.autoplayMs;

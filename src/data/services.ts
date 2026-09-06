@@ -1,8 +1,8 @@
 // Loader for src/data/content/services.json.
 import servicesContent from "./content/services.json";
 
-/** Keys of the icon map in ServicesOverview - add an icon there before adding
- *  a new value here. */
+/** Keys of the icon map in src/components/ui/Icon.tsx - add an entry there
+ *  before adding a new value here. */
 export type ServiceIcon =
   | "search"
   | "shield"

@@ -4,8 +4,6 @@ import homeContent from "./content/home.json";
 import { siteConfig } from "./site";
 import { interpolate } from "@/lib/text";
 
-export const servicesOverview = homeContent.servicesOverview;
-
 export const whyChooseUs = homeContent.whyChooseUs;
 
 /** The `{phone}` placeholder in the JSON is filled from site.json. */

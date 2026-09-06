@@ -2,14 +2,13 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Icon } from "@/components/ui/Icon";
-import type { WhatWeDoCard } from "@/data";
-import { cn } from "@/lib/utils";
-
-/** How long a card holds before the track advances. */
-const ADVANCE_MS = 3400;
-
-/** How long to leave the track alone after someone scrolls or taps it. */
-const RESUME_AFTER_INTERACTION_MS = 7000;
+import {
+  WHAT_WE_DO_ADVANCE_MS,
+  WHAT_WE_DO_RESUME_MS,
+  whatWeDo,
+  type WhatWeDoCard,
+} from "@/data";
+import { interpolate } from "@/lib/text";
 
 /** Slack in px when comparing scroll positions - sub-pixel widths never land
  *  on an exact boundary. */
@@ -23,7 +22,7 @@ export function WhatWeDoCards({ cards }: { cards: WhatWeDoCard[] }) {
   const [scrollable, setScrollable] = useState(false);
 
   const hold = useCallback(() => {
-    heldUntil.current = Date.now() + RESUME_AFTER_INTERACTION_MS;
+    heldUntil.current = Date.now() + WHAT_WE_DO_RESUME_MS;
   }, []);
 
   // Auto-advance. It stands down entirely at xl, where all five cards already
@@ -48,7 +47,7 @@ export function WhatWeDoCards({ cards }: { cards: WhatWeDoCard[] }) {
         left: atEnd ? 0 : track.scrollLeft + step,
         behavior: "smooth",
       });
-    }, ADVANCE_MS);
+    }, WHAT_WE_DO_ADVANCE_MS);
 
     return () => window.clearInterval(timer);
   }, []);
@@ -98,7 +97,7 @@ export function WhatWeDoCards({ cards }: { cards: WhatWeDoCard[] }) {
         ref={trackRef}
         className="what-we-do__track mt-14 sm:mt-16"
         role="group"
-        aria-label="Our services"
+        aria-label={whatWeDo.labels.region}
         onPointerEnter={() => (hovering.current = true)}
         onPointerLeave={() => (hovering.current = false)}
         onPointerDown={hold}
@@ -128,9 +127,11 @@ export function WhatWeDoCards({ cards }: { cards: WhatWeDoCard[] }) {
               key={card.title}
               type="button"
               onClick={() => goTo(i)}
-              aria-label={`Show ${card.title}`}
+              aria-label={interpolate(whatWeDo.labels.showCard, {
+                title: card.title,
+              })}
               aria-current={i === active}
-              className={cn("what-we-do__dot")}
+              className="what-we-do__dot"
             />
           ))}
         </div>

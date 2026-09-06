@@ -12,6 +12,7 @@ export {
   heroHeading,
   heroSlides,
   heroCtas,
+  heroLabels,
   HERO_AUTOPLAY_MS,
   HERO_SWIPE_THRESHOLD_PX,
   type HeroHeading,
@@ -26,8 +27,13 @@ export {
   type Service,
   type ServiceIcon,
 } from "./services";
-export { servicesOverview, whyChooseUs, homeCta } from "./home";
-export { whatWeDo, type WhatWeDoCard } from "./what-we-do";
+export { whyChooseUs, homeCta } from "./home";
+export {
+  whatWeDo,
+  WHAT_WE_DO_ADVANCE_MS,
+  WHAT_WE_DO_RESUME_MS,
+  type WhatWeDoCard,
+} from "./what-we-do";
 export {
   missionVisionValues,
   type MissionVisionValuesCard,
