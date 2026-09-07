@@ -37,7 +37,7 @@ src/
     contact/ContactForm.tsx  Client form (not wired to a backend yet)
   components/
     layout/                  Header, Footer, Container
-    home/                    Home sections (Hero, MissionVisionValues, WhatWeDo, Team…)
+    home/                    Home sections (Hero, MissionVisionValues, WhatWeDo, Team, Certificates…)
                              Pillars renders inside Team, not as its own section
     ui/                      Primitives (Button, SectionHeading, Icon)
   data/
@@ -102,6 +102,7 @@ There are two base URLs because there are two directories on the account:
 | "What We Do" band and its cards | `data/content/what-we-do.json` |
 | "Our Team" band, photo and caption | `data/content/team.json` |
 | "The Pillars" member cards | `data/content/pillars.json` |
+| Certificates and their details | `data/content/certificates.json` |
 | Why-choose-us points, closing CTA | `data/content/home.json` |
 | Service list and detail pages | `data/content/services.json` |
 | About / Contact page copy, form fields | `data/content/about.json`, `contact.json` |
@@ -126,6 +127,10 @@ There are two base URLs because there are two directories on the account:
       the bios are one or two sentences. Supply longer profiles and it can open
       a dialog, or become `/team/[slug]` pages built the way `/services/[slug]`
       already is.
+- [ ] Verify two certificate reference numbers in `certificates.json`, read off
+      the scans: APDI `CM-APDI/417` and ISO `902385/2026/R`. The CAPSI and
+      WBRERA numbers were not legible enough to transcribe, so their
+      `reference` fields are empty and the dialog omits the row.
 - [ ] Deepak Kumar Dutta has a portrait on the host
       (`images/members/Mr-Deepak-Kumar-Dutta-500x500.webp`) but does not appear
       in the live carousel and has no bio, so he is not in `pillars.json`.

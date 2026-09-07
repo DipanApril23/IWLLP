@@ -45,6 +45,7 @@ export {
   PILLARS_RESUME_MS,
   type PillarMember,
 } from "./pillars";
+export { certificates, type Certificate } from "./certificates";
 export { aboutContent } from "./about";
 export { contactContent, type ContactField } from "./contact";
 export { footerContent, footerCopyright } from "./footer";

@@ -1,0 +1,62 @@
+{
+  "eyebrow": "Our Achievements",
+  "title": "CERTIFICATES",
+  "icon": "award",
+  "description": "The memberships and registrations the firm holds, reproduced in full. Open any certificate to read what it covers and how long it runs.",
+  "items": [
+    {
+      "image": "certificate1.webp",
+      "issuer": "CAPSI",
+      "issuerName": "Central Association of Private Security Industry",
+      "title": "Certificate of Membership",
+      "holder": "Innerwork Advisors LLP",
+      "detail": "Recognises Innerwork Advisors LLP as a company member, denoting commitment to the integrity and trust of the private security industry.",
+      "validUntil": "December 2026",
+      "reference": ""
+    },
+    {
+      "image": "certificate2.webp",
+      "issuer": "APDI",
+      "issuerName": "Association of Professional Detectives & Investigators",
+      "title": "Certificate of Membership",
+      "holder": "Sujit Chakraborty, Director",
+      "detail": "Recognises Sujit Chakraborty, Director of Innerwork Advisors LLP, denoting commitment to the integrity and trust of the profession of private investigation.",
+      "validUntil": "31 December 2026",
+      "reference": "CM-APDI/417"
+    },
+    {
+      "image": "certificate3.webp",
+      "issuer": "WBRERA",
+      "issuerName": "West Bengal Real Estate Regulatory Authority",
+      "title": "Certificate of Real Estate Agent",
+      "holder": "Innerwork Advisors LLP",
+      "detail": "Registers Innerwork Advisors LLP as a real estate agent under the West Bengal Real Estate Regulatory Authority, affirming compliance with statutory standards and ethical practice in the real estate sector.",
+      "validUntil": "30 January 2031",
+      "reference": ""
+    },
+    {
+      "image": "certificate4.webp",
+      "issuer": "ISO 9001:2015",
+      "issuerName": "Robust Certifications",
+      "title": "Certificate of Registration",
+      "holder": "Innerwork Advisors LLP",
+      "detail": "Certifies that the Quality Management System of Innerwork Advisors LLP has been audited and found to conform to ISO 9001:2015, for private security services and private investigation and detective services.",
+      "validUntil": "16 April 2029",
+      "reference": "902385/2026/R"
+    }
+  ],
+  "labels": {
+    "region": "Certificates and registrations",
+    "scanAlt": "{title} issued to {holder} by {issuerName}",
+    "view": "View certificate",
+    "validUntil": "Valid to {date}",
+    "dialogTitle": "Issued Certificate Details",
+    "issuedBy": "Issued by",
+    "heldBy": "Held by",
+    "referenceLabel": "Certificate no.",
+    "close": "Close",
+    "previous": "Previous certificate",
+    "next": "Next certificate",
+    "position": "{current} of {total}"
+  }
+}

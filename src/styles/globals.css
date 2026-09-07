@@ -15,6 +15,7 @@
 @import "./components/what-we-do.css";
 @import "./components/team.css";
 @import "./components/pillars.css";
+@import "./components/certificates.css";
 @import "./components/cta-button.css";
 
 /* This file no longer lives next to the components, so point Tailwind's class

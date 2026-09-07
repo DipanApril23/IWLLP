@@ -1,0 +1,454 @@
+/* Certificates - src/components/home/Certificates.tsx + CertificateWall.tsx
+
+   A wall of credentials on the brand navy, each scan mounted on a cream mat
+   inside a glass card, opening full size in a dialog.
+
+   In CSS rather than utilities because the card is a stack of coupled layers
+   (mat, gold rule, seal, hover veil) and the dialog's two-pane layout has to
+   flip with the viewport. */
+
+.certs {
+  background-color: #3e5481;
+  background-image:
+    radial-gradient(72% 55% at 50% 0%, rgb(207 167 88 / 0.18), transparent 68%),
+    linear-gradient(to bottom, #44598b, #33456b);
+}
+
+.certs__head {
+  max-inline-size: 52rem;
+  margin-inline: auto;
+  text-align: center;
+}
+
+.certs__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: clamp(1rem, 0.958rem + 0.208vw, 1.125rem);
+  font-style: italic;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+}
+
+.certs__eyebrow-icon {
+  flex: none;
+}
+
+/* White, not the near-black the original used. On this navy the dark title
+   sat at about 2:1 contrast and read as a shadow rather than a heading. */
+.certs__title {
+  margin-block-start: 0.55rem;
+  font-size: clamp(1.875rem, 1.458rem + 2.083vw, 3rem);
+  line-height: 1.1;
+  letter-spacing: 0.01em;
+  color: #ffffff;
+}
+
+.certs__rule {
+  display: block;
+  inline-size: 3.5rem;
+  block-size: 3px;
+  margin: 1.1rem auto 1.25rem;
+  border-radius: 9999px;
+  background-image: linear-gradient(
+    to right,
+    rgb(207 167 88 / 0.2),
+    var(--color-accent),
+    rgb(207 167 88 / 0.2)
+  );
+}
+
+.certs__lede {
+  font-size: clamp(1rem, 0.979rem + 0.104vw, 1.0625rem);
+  line-height: 1.75;
+  color: rgb(255 255 255 / 0.8);
+  text-wrap: pretty;
+}
+
+.certs__wall {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+  margin-block-start: 2.75rem;
+}
+
+@media (width >= 40rem) {
+  .certs__wall {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.5rem;
+    margin-block-start: 3rem;
+  }
+}
+
+/* All four in one row only at xl, where the container has stopped growing and
+   a quarter of it is still wide enough for the scan to be legible. */
+@media (width >= 80rem) {
+  .certs__wall {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.certs__card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 0.85rem 0.9rem 1.15rem;
+  border: 1px solid rgb(255 255 255 / 0.16);
+  border-radius: 0.95rem;
+  background-color: rgb(255 255 255 / 0.07);
+  transition:
+    transform 300ms ease,
+    border-color 300ms ease,
+    background-color 300ms ease,
+    box-shadow 300ms ease;
+}
+
+.certs__card:hover {
+  transform: translateY(-5px);
+  border-color: rgb(207 167 88 / 0.7);
+  background-color: rgb(255 255 255 / 0.11);
+  box-shadow: 0 24px 45px -24px rgb(2 6 23 / 0.85);
+}
+
+/* The mat. Its padding is what insets the scan, because an absolutely
+   positioned `fill` image resolves inset:0 against the padding box. */
+.certs__frame {
+  position: relative;
+  display: block;
+  aspect-ratio: 5 / 4;
+  padding: 0.7rem;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  background-color: #fdfbf5;
+}
+
+/* Gold rule sitting in the mat between its edge and the document. */
+.certs__frame::after {
+  content: "";
+  position: absolute;
+  inset: 0.35rem;
+  z-index: 1;
+  border: 1px solid rgb(207 167 88 / 0.5);
+  border-radius: 0.3rem;
+  pointer-events: none;
+}
+
+/* Contain, never cover: three of the four scans are landscape and the fourth
+   is A4 portrait, so cropping to a common box would cut text off one or the
+   other. Letterboxing on the mat is what a mounted document looks like. */
+.certs__scan {
+  object-fit: contain;
+  object-position: center;
+}
+
+.certs__view {
+  position: absolute;
+  inset: 0.7rem;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  border-radius: 0.25rem;
+  background-color: rgb(15 23 42 / 0.62);
+  color: #ffffff;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  opacity: 0;
+  transition: opacity 250ms ease;
+}
+
+.certs__card:hover .certs__view {
+  opacity: 1;
+}
+
+.certs__seal {
+  position: absolute;
+  inset-block-start: 0.35rem;
+  inset-inline-end: 0.4rem;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 2.1rem;
+  block-size: 2.1rem;
+  border-radius: 9999px;
+  background-image: linear-gradient(140deg, #e2c085, var(--color-accent));
+  color: #33456b;
+  box-shadow:
+    0 0 0 3px rgb(62 84 129 / 0.9),
+    0 6px 14px -6px rgb(2 6 23 / 0.9);
+}
+
+.certs__issuer {
+  align-self: flex-start;
+  margin-block-start: 1rem;
+  padding: 0.22rem 0.6rem;
+  border: 1px solid rgb(207 167 88 / 0.45);
+  border-radius: 9999px;
+  background-color: rgb(207 167 88 / 0.16);
+  color: #eed5a4;
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.certs__name {
+  margin-block-start: 0.6rem;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  line-height: 1.35;
+  color: #ffffff;
+}
+
+.certs__open {
+  text-align: start;
+  color: inherit;
+}
+
+/* Stretched over the card so the whole thing is clickable, while the card
+   keeps a single focus stop on the heading's button. */
+.certs__open::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 0.95rem;
+}
+
+.certs__open:focus-visible {
+  outline: none;
+}
+
+.certs__card:has(.certs__open:focus-visible) {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+.certs__valid {
+  margin-block-start: auto;
+  padding-block-start: 0.45rem;
+  font-size: 0.75rem;
+  color: rgb(255 255 255 / 0.62);
+}
+
+/* ---- Dialog ---------------------------------------------------------- */
+
+.certs__dialog {
+  /* Explicit, because Tailwind's preflight zeroes margin on every element and
+     that overrides the UA stylesheet's `dialog:modal { margin: auto }` - the
+     dialog was opening pinned to the top-left of the viewport. */
+  margin: auto;
+  inline-size: min(66rem, 94vw);
+  max-inline-size: none;
+  max-block-size: 92vh;
+  padding: 0;
+  border: none;
+  border-radius: 1rem;
+  background-color: #ffffff;
+  overflow: hidden;
+  box-shadow: 0 40px 90px -30px rgb(2 6 23 / 0.8);
+}
+
+.certs__dialog::backdrop {
+  background-color: rgb(6 10 22 / 0.82);
+  backdrop-filter: blur(4px);
+}
+
+.certs__modal {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr;
+  max-block-size: 92vh;
+  overflow-y: auto;
+}
+
+@media (width >= 56rem) {
+  .certs__modal {
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+    overflow-y: hidden;
+  }
+}
+
+.certs__stage {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  padding: 1.25rem;
+  background-color: #f1f0ea;
+}
+
+@media (width >= 56rem) {
+  .certs__stage {
+    aspect-ratio: auto;
+    min-block-size: 34rem;
+    max-block-size: 92vh;
+    padding: 1.75rem;
+  }
+}
+
+.certs__full {
+  object-fit: contain;
+  object-position: center;
+}
+
+.certs__details {
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem 1.5rem 1.75rem;
+}
+
+@media (width >= 56rem) {
+  .certs__details {
+    padding: 2.25rem 2rem;
+    overflow-y: auto;
+  }
+}
+
+.certs__kicker {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #94a3b8;
+}
+
+.certs__modal-issuer {
+  margin-block-start: 1rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-brand);
+}
+
+.certs__modal-title {
+  margin-block-start: 0.2rem;
+  font-size: clamp(1.25rem, 1.15rem + 0.5vw, 1.625rem);
+  font-weight: 800;
+  line-height: 1.2;
+  color: #0f172a;
+}
+
+.certs__facts {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.35rem 1rem;
+  margin-block-start: 1.25rem;
+  padding-block: 0.9rem;
+  border-block: 1px solid #e2e8f0;
+  font-size: 0.8125rem;
+}
+
+.certs__facts dt {
+  color: #94a3b8;
+  white-space: nowrap;
+}
+
+.certs__facts dd {
+  color: #334155;
+  font-weight: 600;
+}
+
+.certs__ref {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+}
+
+.certs__modal-detail {
+  margin-block-start: 1.1rem;
+  font-size: 0.9375rem;
+  line-height: 1.75;
+  color: #475569;
+  text-wrap: pretty;
+}
+
+.certs__modal-valid {
+  display: inline-flex;
+  align-self: flex-start;
+  margin-block-start: 1.1rem;
+  padding: 0.3rem 0.7rem;
+  border: 1px solid rgb(207 167 88 / 0.5);
+  border-radius: 9999px;
+  background-color: rgb(207 167 88 / 0.14);
+  color: #8a6a2c;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.certs__nav {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  margin-block-start: 1.75rem;
+  padding-block-start: 1.25rem;
+  border-block-start: 1px solid #e2e8f0;
+}
+
+@media (width >= 56rem) {
+  .certs__nav {
+    margin-block-start: auto;
+  }
+}
+
+.certs__step {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 2.5rem;
+  block-size: 2.5rem;
+  border-radius: 9999px;
+  background-color: var(--color-accent);
+  color: #ffffff;
+  transition:
+    background-color 200ms ease,
+    transform 200ms ease;
+}
+
+.certs__step:hover {
+  background-color: #b8914a;
+  transform: scale(1.08);
+}
+
+.certs__position {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: #64748b;
+}
+
+.certs__close {
+  position: absolute;
+  inset-block-start: 0.75rem;
+  inset-inline-end: 0.75rem;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 2.25rem;
+  block-size: 2.25rem;
+  border-radius: 9999px;
+  background-color: rgb(15 23 42 / 0.72);
+  color: #ffffff;
+  transition: background-color 200ms ease;
+}
+
+.certs__close:hover {
+  background-color: #0f172a;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .certs__card,
+  .certs__view,
+  .certs__step,
+  .certs__close {
+    transition: none;
+  }
+
+  .certs__card:hover {
+    transform: none;
+  }
+
+  .certs__step:hover {
+    transform: none;
+  }
+}
