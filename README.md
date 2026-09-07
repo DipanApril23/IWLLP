@@ -109,6 +109,7 @@ There are two base URLs because there are two directories on the account:
 | Footer column titles, copyright | `data/content/footer.json` |
 | Image host | `data/config/images.json` |
 | Carousel timings | `data/config/hero.json`, `what-we-do.json`, `pillars.json` |
+| How much of the certificate wall shows before "show all" | `data/config/certificates.json` |
 
 ## Still to do
 

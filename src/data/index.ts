@@ -45,7 +45,13 @@ export {
   PILLARS_RESUME_MS,
   type PillarMember,
 } from "./pillars";
-export { certificates, type Certificate } from "./certificates";
+export {
+  certificates,
+  CERTIFICATES_INITIAL_COUNT,
+  CERTIFICATES_MIN_VISIBLE,
+  CERTIFICATES_ROWS_BEFORE_TOGGLE,
+  type Certificate,
+} from "./certificates";
 export { aboutContent } from "./about";
 export { contactContent, type ContactField } from "./contact";
 export { footerContent, footerCopyright } from "./footer";

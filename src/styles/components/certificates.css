@@ -65,27 +65,100 @@
   text-wrap: pretty;
 }
 
+/* Says how big the set is before you count the cards, and stays correct as it
+   grows. */
+.certs__count {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-block-start: 1.25rem;
+  padding: 0.28rem 0.75rem;
+  border: 1px solid rgb(255 255 255 / 0.25);
+  border-radius: 9999px;
+  background-color: rgb(255 255 255 / 0.08);
+  color: rgb(255 255 255 / 0.85);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.certs__count::before {
+  content: "";
+  block-size: 0.35rem;
+  inline-size: 0.35rem;
+  border-radius: 9999px;
+  background-color: var(--color-accent);
+}
+
+/* The column count comes from the width, not from a breakpoint. Hard-coding
+   1/2/4 tied the layout to there being exactly four certificates: two would
+   have sat in a four-track row with half of it empty, and adding a fifth put
+   one card alone on a second row. auto-fill packs in as many 15rem tracks as
+   fit and the cards share what is left, so any number lays out correctly at
+   any container width. min() keeps the track from overflowing a 320px phone. */
 .certs__wall {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: repeat(auto-fill, minmax(min(15rem, 100%), 1fr));
   gap: 1.25rem;
   margin-block-start: 2.75rem;
 }
 
 @media (width >= 40rem) {
   .certs__wall {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 1.5rem;
     margin-block-start: 3rem;
   }
+
+  /* Two or three certificates in a four-track row would sit clustered at the
+     left with the rest of it empty. Below three, the empty tracks collapse
+     (auto-fit) and the row centres. Scoped above 40rem because a phone wants
+     the card at full width, not capped and floated in the middle. */
+  .certs__wall:has(> :last-child:nth-child(-n + 3)) {
+    grid-template-columns: repeat(auto-fit, minmax(min(15rem, 100%), 20rem));
+    justify-content: center;
+  }
 }
 
-/* All four in one row only at xl, where the container has stopped growing and
-   a quarter of it is still wide enough for the scan to be legible. */
-@media (width >= 80rem) {
-  .certs__wall {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
+/* ---- Show all -------------------------------------------------------- */
+
+.certs__more-row {
+  display: flex;
+  justify-content: center;
+  margin-block-start: 2rem;
+}
+
+.certs__more {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1.4rem;
+  border: 1px solid rgb(207 167 88 / 0.55);
+  border-radius: 9999px;
+  background-color: rgb(207 167 88 / 0.14);
+  color: #f3dfb6;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  transition:
+    background-color 200ms ease,
+    border-color 200ms ease,
+    color 200ms ease;
+}
+
+.certs__more:hover {
+  border-color: var(--color-accent);
+  background-color: rgb(207 167 88 / 0.26);
+  color: #ffffff;
+}
+
+.certs__chevron {
+  flex: none;
+  transition: transform 250ms ease;
+}
+
+.certs__chevron--up {
+  transform: rotate(180deg);
 }
 
 .certs__card {
@@ -436,11 +509,57 @@
   background-color: #0f172a;
 }
 
+/* ---- Thumbnail rail -------------------------------------------------- */
+
+.certs__rail {
+  position: relative;
+  display: flex;
+  gap: 0.5rem;
+  margin-block-start: 1.1rem;
+  padding-block-start: 1rem;
+  border-block-start: 1px solid #e2e8f0;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scrollbar-width: thin;
+}
+
+.certs__thumb {
+  position: relative;
+  flex: none;
+  inline-size: 3.75rem;
+  block-size: 3rem;
+  border-radius: 0.35rem;
+  overflow: hidden;
+  background-color: #f1f0ea;
+  box-shadow: 0 0 0 1px #e2e8f0;
+  opacity: 0.6;
+  transition:
+    opacity 200ms ease,
+    box-shadow 200ms ease;
+}
+
+.certs__thumb:hover {
+  opacity: 1;
+}
+
+.certs__thumb[aria-current="true"] {
+  opacity: 1;
+  box-shadow: 0 0 0 2px var(--color-accent);
+}
+
+.certs__thumb-scan {
+  object-fit: contain;
+  object-position: center;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .certs__card,
   .certs__view,
   .certs__step,
-  .certs__close {
+  .certs__close,
+  .certs__more,
+  .certs__chevron,
+  .certs__thumb {
     transition: none;
   }
 

@@ -1,3 +1,6 @@
 {
-  "imagePath": "certificates"
+  "imagePath": "certificates",
+  "rowsBeforeToggle": 2,
+  "minVisible": 4,
+  "initialCount": 8
 }

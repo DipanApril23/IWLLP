@@ -43,3 +43,30 @@ export const certificates = {
     }),
   ),
 };
+
+/**
+ * How many rows of the wall are shown before the "show all" toggle.
+ *
+ * Rows rather than cards, because a card count that bounds one layout does not
+ * bound the others: eight cards is two rows and about 1200px on a desktop, but
+ * eight rows and 3700px on a phone. Two rows is roughly the same height at
+ * every width, whatever the column count works out to be.
+ */
+export const CERTIFICATES_ROWS_BEFORE_TOGGLE = certificatesConfig.rowsBeforeToggle;
+
+/**
+ * Never hide the list behind a toggle below this many cards.
+ *
+ * Two rows is one card per row on a phone, so a set of four would arrive as two
+ * cards and a "show all 4" button - more furniture than the four cards it was
+ * saving. The floor keeps a small set whole and only takes effect where the row
+ * cap would be stricter.
+ */
+export const CERTIFICATES_MIN_VISIBLE = certificatesConfig.minVisible;
+
+/**
+ * Cards rendered before the column count has been measured - the server render
+ * and anything without JavaScript. Sized for the widest layout so a desktop
+ * first paint is already correct and only narrower ones settle.
+ */
+export const CERTIFICATES_INITIAL_COUNT = certificatesConfig.initialCount;

@@ -2,6 +2,7 @@ import { Container } from "@/components/layout/Container";
 import { Icon } from "@/components/ui/Icon";
 import { CertificateWall } from "./CertificateWall";
 import { certificates } from "@/data";
+import { interpolate } from "@/lib/text";
 
 export function Certificates() {
   return (
@@ -24,6 +25,16 @@ export function Certificates() {
           <span className="certs__rule" aria-hidden />
 
           <p className="certs__lede">{certificates.description}</p>
+
+          {/* Two labels rather than one with a {count} token, so "1 credential"
+              never renders as "1 credentials". */}
+          <p className="certs__count">
+            {certificates.items.length === 1
+              ? certificates.labels.countOne
+              : interpolate(certificates.labels.countMany, {
+                  count: certificates.items.length,
+                })}
+          </p>
         </div>
 
         <CertificateWall items={certificates.items} />

@@ -57,6 +57,12 @@
     "close": "Close",
     "previous": "Previous certificate",
     "next": "Next certificate",
-    "position": "{current} of {total}"
+    "position": "{current} of {total}",
+    "countOne": "1 credential",
+    "countMany": "{count} credentials",
+    "showAll": "Show all {count} certificates",
+    "showFewer": "Show fewer",
+    "rail": "Jump to a certificate",
+    "railItem": "Show {title} from {issuer}"
   }
 }

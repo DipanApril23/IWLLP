@@ -2,24 +2,74 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { Award, ChevronLeft, ChevronRight, Maximize2, X } from "lucide-react";
-import { certificates, type Certificate } from "@/data";
+import {
+  Award,
+  ChevronDown,
+  ChevronLeft,
+  ChevronRight,
+  Maximize2,
+  X,
+} from "lucide-react";
+import {
+  CERTIFICATES_INITIAL_COUNT,
+  CERTIFICATES_MIN_VISIBLE,
+  CERTIFICATES_ROWS_BEFORE_TOGGLE,
+  certificates,
+  type Certificate,
+} from "@/data";
 import { interpolate } from "@/lib/text";
 
 const labels = certificates.labels;
 
 /**
- * The credential wall: every certificate visible at once, each opening full
- * size in a dialog.
+ * The credential wall: the certificates the firm holds, each opening full size
+ * in a dialog.
  *
- * The original site steps through them one at a time, which means four clicks
- * before you know what the firm actually holds - the opposite of what a wall
- * of credentials is for. Showing all four and enlarging on demand puts the
- * whole set in one glance and still gives the scan enough room to be read.
+ * Built to survive the list growing. The grid derives its column count from the
+ * width rather than hard-coding one per breakpoint; the wall shows two rows of
+ * whatever that works out to before offering the rest (uncapped, twenty
+ * certificates run to 7000px on a phone); and the dialog carries a thumbnail
+ * rail so reaching the last one stays a single click rather than nineteen.
  */
 export function CertificateWall({ items }: { items: Certificate[] }) {
   const dialogRef = useRef<HTMLDialogElement>(null);
+  const railRef = useRef<HTMLDivElement>(null);
+  const wallRef = useRef<HTMLUListElement>(null);
   const [open, setOpen] = useState<number | null>(null);
+  const [expanded, setExpanded] = useState(false);
+  /** Columns the grid actually resolved to. Null until measured. */
+  const [columns, setColumns] = useState<number | null>(null);
+
+  // The grid picks its own column count from the available width, so the only
+  // way to cap by rows is to ask it what it decided. auto-fill lays the tracks
+  // out whether or not there are cards to fill them, so the computed value is
+  // right even while the wall is collapsed.
+  useEffect(() => {
+    const wall = wallRef.current;
+    if (!wall) return;
+
+    const measure = () => {
+      const tracks = getComputedStyle(wall)
+        .gridTemplateColumns.split(" ")
+        .filter((track) => track && track !== "none").length;
+      setColumns(Math.max(1, tracks));
+    };
+
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(wall);
+    return () => observer.disconnect();
+  }, []);
+
+  const perRow = columns ?? 0;
+  const cap = Math.max(
+    perRow > 0
+      ? perRow * CERTIFICATES_ROWS_BEFORE_TOGGLE
+      : CERTIFICATES_INITIAL_COUNT,
+    CERTIFICATES_MIN_VISIBLE,
+  );
+  const capped = items.length > cap;
+  const visible = expanded ? items : items.slice(0, cap);
 
   // Drive the native dialog from state rather than the other way round, so
   // Escape, the backdrop and the buttons all end up in the same place.
@@ -30,9 +80,24 @@ export function CertificateWall({ items }: { items: Certificate[] }) {
     if (open === null && dialog.open) dialog.close();
   }, [open]);
 
+  // Keep the active thumbnail in view. Scrolled by hand rather than with
+  // scrollIntoView, which would also move the page behind the dialog.
+  useEffect(() => {
+    const rail = railRef.current;
+    if (!rail || open === null) return;
+    const thumb = rail.children[open] as HTMLElement | undefined;
+    if (!thumb) return;
+    rail.scrollTo({
+      left: thumb.offsetLeft - rail.clientWidth / 2 + thumb.clientWidth / 2,
+      behavior: "smooth",
+    });
+  }, [open]);
+
   const move = useCallback(
     (delta: number) =>
-      setOpen((i) => (i === null ? i : (i + delta + items.length) % items.length)),
+      setOpen((i) =>
+        i === null ? i : (i + delta + items.length) % items.length,
+      ),
     [items.length],
   );
 
@@ -50,20 +115,20 @@ export function CertificateWall({ items }: { items: Certificate[] }) {
 
   return (
     <>
-      <ul className="certs__wall" aria-label={labels.region}>
-        {items.map((item, i) => (
+      <ul ref={wallRef} className="certs__wall" aria-label={labels.region}>
+        {visible.map((item, i) => (
           <li key={item.image} className="certs__card">
             {/* The scan sits on a cream mat with a gold rule inside it, like a
                 mounted document. The mat is the frame's padding, so `fill`
-                insets to it and the scan is never cropped - one of the four is
-                A4 portrait against three landscape, and `cover` would slice
-                the text off whichever way round it was set. */}
+                insets to it and the scan is never cropped - the set already
+                mixes landscape and A4 portrait, and `cover` would slice the
+                text off whichever way round it was set. */}
             <span className="certs__frame">
               <Image
                 src={item.image}
                 alt={item.alt}
                 fill
-                sizes="(min-width: 80rem) 16rem, (min-width: 40rem) 45vw, 90vw"
+                sizes="(min-width: 80rem) 17rem, (min-width: 40rem) 45vw, 90vw"
                 className="certs__scan"
               />
               <span className="certs__view" aria-hidden>
@@ -94,6 +159,25 @@ export function CertificateWall({ items }: { items: Certificate[] }) {
           </li>
         ))}
       </ul>
+
+      {capped ? (
+        <div className="certs__more-row">
+          <button
+            type="button"
+            className="certs__more"
+            aria-expanded={expanded}
+            onClick={() => setExpanded((v) => !v)}
+          >
+            {expanded
+              ? labels.showFewer
+              : interpolate(labels.showAll, { count: items.length })}
+            <ChevronDown
+              className={`certs__chevron h-4 w-4${expanded ? " certs__chevron--up" : ""}`}
+              strokeWidth={2.5}
+            />
+          </button>
+        </div>
+      ) : null}
 
       <dialog
         ref={dialogRef}
@@ -153,7 +237,7 @@ export function CertificateWall({ items }: { items: Certificate[] }) {
 
                 <span className="certs__position">
                   {interpolate(labels.position, {
-                    current: (open ?? 0) + 1,
+                    current: open! + 1,
                     total: items.length,
                   })}
                 </span>
@@ -167,6 +251,40 @@ export function CertificateWall({ items }: { items: Certificate[] }) {
                   <ChevronRight className="h-5 w-5" strokeWidth={2.5} />
                 </button>
               </div>
+
+              {/* Direct access to every certificate. Stepping is fine at four
+                  and useless at twenty - this keeps the last one a single
+                  click away however long the list gets. */}
+              {items.length > 2 ? (
+                <div
+                  ref={railRef}
+                  className="certs__rail"
+                  role="group"
+                  aria-label={labels.rail}
+                >
+                  {items.map((item, i) => (
+                    <button
+                      key={item.image}
+                      type="button"
+                      onClick={() => setOpen(i)}
+                      aria-label={interpolate(labels.railItem, {
+                        title: item.title,
+                        issuer: item.issuer,
+                      })}
+                      aria-current={i === open}
+                      className="certs__thumb"
+                    >
+                      <Image
+                        src={item.image}
+                        alt=""
+                        fill
+                        sizes="4rem"
+                        className="certs__thumb-scan"
+                      />
+                    </button>
+                  ))}
+                </div>
+              ) : null}
             </div>
 
             <button
