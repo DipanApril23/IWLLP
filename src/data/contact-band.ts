@@ -55,12 +55,19 @@ export const contactBand = {
 };
 
 /**
- * The embedded enquiry form. Its URL and ids are an integration detail.
+ * The embedded enquiry form.
  *
- * Deliberately without the widget host's own `form_embed.js`. That script is
- * written to build the iframe itself, and dropped onto one that is already in
- * the markup it takes the element over: measured here it stretched the frame
- * to the full width of the viewport, past the card holding it, and the iframe
- * then never requested its source at all. The frame is sized in CSS instead.
+ * `embedScript` is the widget host's own resizer - iframe-resizer under the
+ * hood - derived from the form's URL so the two can never point at different
+ * instances. It sizes the frame to the form in every state, which matters
+ * because the form does not stay one height: a submit with the required fields
+ * empty adds an error line under each of the four and grows it by ~166px.
+ *
+ * The iframe it manages must NOT be lazy. The script hides the frame while it
+ * initialises, and a hidden frame never enters the viewport, so a lazy one sits
+ * there and never requests its source at all.
  */
-export const contactForm = contactBandConfig.form;
+export const contactForm = {
+  ...contactBandConfig.form,
+  embedScript: new URL("/js/form_embed.js", contactBandConfig.form.src).href,
+};

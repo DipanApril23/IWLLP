@@ -190,28 +190,14 @@ a.contact__detail-value:hover {
   color: #64748b;
 }
 
-/* The frame is given a height because the widget cannot negotiate one, and the
-   height has to cover the form at its TALLEST, not its usual size. Two things
-   move it:
+/* The resizer sets the frame's height inline, to the form's real height in
+   whatever state it is in, so there is no dead white space under it and no
+   scrollbar over it. These are only the floor it falls back to if that script
+   is blocked - and they stop applying the moment it takes over, which is what
+   the attribute selector below is for. Measured pristine on the live widget:
 
-   1. Width. The form reflows as it narrows, so it gets taller the narrower the
-      frame is.
-   2. State. A submit with required fields empty adds an error line under each
-      of them - four of them - and that alone is worth 141-166px.
-
-   Sizing for the pristine form is what put a scrollbar inside the frame the
-   moment anyone mis-submitted, and a vertical scrollbar then takes 15px of
-   width, which brings a horizontal one with it. Measured on the live widget,
-   pristine -> with four errors:
-
-     frame 243px -> 799 -> 965      frame 419px -> 693 -> 834
-     frame 283px -> 745 -> 911      frame 477px -> 693 -> 834
-     frame 313px -> 720 -> 886      frame 536px -> 723 -> 864
-     frame 353px -> 693 -> 834      frame 664px -> 723 -> 864
-
-   Each step below clears the worst case in its band. The slack left over in
-   the ordinary state reads as padding, because the card behind the frame is
-   white too - which is why the card's own bottom padding is nearly nothing. */
+     frame 243px -> 799     frame 353px -> 693     frame 536px -> 723
+     frame 283px -> 745     frame 477px -> 693     frame 664px -> 723 */
 .contact__frame {
   margin-block-start: 1rem;
 }
@@ -219,22 +205,20 @@ a.contact__detail-value:hover {
 .contact__iframe {
   display: block;
   inline-size: 100%;
-  block-size: 61rem;
   border: none;
   border-radius: 3px;
 }
 
-/* From here the frame is at least 307px wide, where the worst case is 893. */
-@media (width >= 24rem) {
-  .contact__iframe {
-    block-size: 57rem;
-  }
+/* The resizer stamps this attribute on the frame once it owns the height, so
+   the fallback floor gets out of its way rather than propping the frame open
+   below the height it just worked out. */
+.contact__iframe:not([data-iframe-resizer-initialized="true"]) {
+  min-block-size: 50rem;
 }
 
-/* And from here at least 355px, where it drops to 834 - and stays under 864
-   all the way up, including the 664px frame a tablet gives it. */
-@media (width >= 27rem) {
-  .contact__iframe {
-    block-size: 56rem;
+/* From here the frame is at least 307px wide, where the pristine form is 720. */
+@media (width >= 24rem) {
+  .contact__iframe:not([data-iframe-resizer-initialized="true"]) {
+    min-block-size: 45.5rem;
   }
 }

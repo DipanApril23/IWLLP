@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Script from "next/script";
 import { Container } from "@/components/layout/Container";
 import { Icon } from "@/components/ui/Icon";
 import { contactBand, contactForm } from "@/data";
@@ -91,15 +92,16 @@ export function ContactBand() {
             {/* The enquiry form is hosted elsewhere and embedded as-is. The
                 widget's own resizer sets the frame's height as the form grows
                 and shrinks - it does not stay one height, a failed submit adds
-                an error line under every required field - and the CSS keeps a
-                floor under it so a blocked script degrades to a whole form
-                rather than a cropped one. */}
+                an error line under every required field. Deliberately not
+                lazy: the resizer hides the frame while it initialises, and a
+                hidden frame never reaches the viewport, so a lazy one never
+                loads at all. The CSS keeps a floor under it until the resizer
+                takes over, so a blocked script still shows a whole form. */}
             <div className="contact__frame">
               <iframe
                 src={contactForm.src}
                 id={contactForm.elementId}
                 title={contactBand.labels.formTitle}
-                loading="lazy"
                 className="contact__iframe"
                 data-layout="{'id':'INLINE'}"
                 data-trigger-type="alwaysShow"
@@ -114,6 +116,8 @@ export function ContactBand() {
                 data-form-id={contactForm.formId}
               />
             </div>
+
+            <Script src={contactForm.embedScript} strategy="afterInteractive" />
 
           </div>
         </div>
