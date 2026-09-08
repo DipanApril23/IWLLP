@@ -111,7 +111,7 @@ There are two base URLs because there are two directories on the account:
 | Footer column titles, copyright | `data/content/footer.json` |
 | Image host | `data/config/images.json` |
 | Carousel timings | `data/config/hero.json`, `what-we-do.json`, `pillars.json` |
-| How much of the certificate wall shows before "show all" | `data/config/certificates.json` |
+| How much of the certificate wall shows before "show all" (grid only - below 40rem it is a swipeable track) | `data/config/certificates.json` |
 | Enquiry form URL and ids | `data/config/contact-band.json` |
 
 ## Still to do

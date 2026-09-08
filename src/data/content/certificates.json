@@ -63,6 +63,7 @@
     "showAll": "Show all {count} certificates",
     "showFewer": "Show fewer",
     "rail": "Jump to a certificate",
-    "railItem": "Show {title} from {issuer}"
+    "railItem": "Show {title} from {issuer}",
+    "showCertificate": "Show {title} from {issuer}"
   }
 }

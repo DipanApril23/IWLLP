@@ -91,6 +91,32 @@
   background-color: var(--color-accent);
 }
 
+.certs__dots {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-block-start: 1.25rem;
+}
+
+.certs__dot {
+  block-size: 0.45rem;
+  inline-size: 0.45rem;
+  border-radius: 9999px;
+  background-color: rgb(255 255 255 / 0.35);
+  transition:
+    inline-size 250ms ease,
+    background-color 250ms ease;
+}
+
+.certs__dot:hover {
+  background-color: rgb(255 255 255 / 0.6);
+}
+
+.certs__dot[aria-current="true"] {
+  inline-size: 1.5rem;
+  background-color: var(--color-accent);
+}
+
 /* The column count comes from the width, not from a breakpoint. Hard-coding
    1/2/4 tied the layout to there being exactly four certificates: two would
    have sat in a four-track row with half of it empty, and adding a fifth put
@@ -117,6 +143,35 @@
   .certs__wall:has(> :last-child:nth-child(-n + 3)) {
     grid-template-columns: repeat(auto-fit, minmax(min(15rem, 100%), 20rem));
     justify-content: center;
+  }
+}
+
+/* Below 40rem the wall is a swipeable track rather than a grid: four cards
+   stacked is four screenfuls to scroll past on a phone, and the track is one
+   card tall however many there are. One whole card at a time - a sliced card
+   at the edge reads as a rendering fault rather than an affordance - with the
+   dots below carrying the fact that there are more. */
+@media (width < 40rem) {
+  .certs__wall {
+    display: flex;
+    gap: 0.85rem;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+    /* Room for the card's hover lift and shadow, which the scroll container
+       would otherwise clip. */
+    padding-block: 0.35rem;
+  }
+
+  .certs__wall::-webkit-scrollbar {
+    display: none;
+  }
+
+  .certs__card {
+    flex: 0 0 100%;
+    scroll-snap-align: start;
   }
 }
 
@@ -559,7 +614,8 @@
   .certs__close,
   .certs__more,
   .certs__chevron,
-  .certs__thumb {
+  .certs__thumb,
+  .certs__dot {
     transition: none;
   }
 

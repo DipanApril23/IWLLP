@@ -25,11 +25,13 @@ const labels = certificates.labels;
  * The credential wall: the certificates the firm holds, each opening full size
  * in a dialog.
  *
- * Built to survive the list growing. The grid derives its column count from the
- * width rather than hard-coding one per breakpoint; the wall shows two rows of
- * whatever that works out to before offering the rest (uncapped, twenty
- * certificates run to 7000px on a phone); and the dialog carries a thumbnail
- * rail so reaching the last one stays a single click rather than nineteen.
+ * Built to survive the list growing. On a phone the wall is a swipeable track,
+ * one card at a time, so its height is one card however many there are. Wider
+ * up it is a grid that derives its column count from the width rather than
+ * hard-coding one per breakpoint, and shows two rows of whatever that works out
+ * to before offering the rest (uncapped, twenty certificates run to 7000px).
+ * The dialog carries a thumbnail rail either way, so reaching the last one
+ * stays a single click rather than nineteen.
  */
 export function CertificateWall({ items }: { items: Certificate[] }) {
   const dialogRef = useRef<HTMLDialogElement>(null);
@@ -37,22 +39,30 @@ export function CertificateWall({ items }: { items: Certificate[] }) {
   const wallRef = useRef<HTMLUListElement>(null);
   const [open, setOpen] = useState<number | null>(null);
   const [expanded, setExpanded] = useState(false);
-  /** Columns the grid actually resolved to. Null until measured. */
-  const [columns, setColumns] = useState<number | null>(null);
+  /** What the stylesheet made of the wall. Null until measured. */
+  const [layout, setLayout] = useState<{
+    /** True below the breakpoint where the wall becomes a swipeable track. */
+    track: boolean;
+    /** Columns the grid resolved to. 1 while it is a track. */
+    columns: number;
+  } | null>(null);
+  const [active, setActive] = useState(0);
 
-  // The grid picks its own column count from the available width, so the only
-  // way to cap by rows is to ask it what it decided. auto-fill lays the tracks
-  // out whether or not there are cards to fill them, so the computed value is
-  // right even while the wall is collapsed.
+  // The stylesheet decides both the column count and whether the wall is a grid
+  // at all, so the component asks it rather than repeating the breakpoints.
+  // auto-fill lays the tracks out whether or not there are cards to fill them,
+  // so the count is right even while the wall is collapsed.
   useEffect(() => {
     const wall = wallRef.current;
     if (!wall) return;
 
     const measure = () => {
-      const tracks = getComputedStyle(wall)
-        .gridTemplateColumns.split(" ")
-        .filter((track) => track && track !== "none").length;
-      setColumns(Math.max(1, tracks));
+      const style = getComputedStyle(wall);
+      const track = style.display === "flex";
+      const columns = style.gridTemplateColumns
+        .split(" ")
+        .filter((value) => value && value !== "none").length;
+      setLayout({ track, columns: Math.max(1, columns) });
     };
 
     measure();
@@ -61,15 +71,50 @@ export function CertificateWall({ items }: { items: Certificate[] }) {
     return () => observer.disconnect();
   }, []);
 
-  const perRow = columns ?? 0;
-  const cap = Math.max(
-    perRow > 0
-      ? perRow * CERTIFICATES_ROWS_BEFORE_TOGGLE
-      : CERTIFICATES_INITIAL_COUNT,
-    CERTIFICATES_MIN_VISIBLE,
-  );
+  // As a track the wall scrolls rather than stacking, so its height is one card
+  // whatever the count - there is nothing to cap and nothing to hide.
+  const cap = layout?.track
+    ? items.length
+    : Math.max(
+        layout
+          ? layout.columns * CERTIFICATES_ROWS_BEFORE_TOGGLE
+          : CERTIFICATES_INITIAL_COUNT,
+        CERTIFICATES_MIN_VISIBLE,
+      );
   const capped = items.length > cap;
   const visible = expanded ? items : items.slice(0, cap);
+
+  // Keep the dots in step with wherever the track actually is, whether it got
+  // there by swipe or by tapping a dot.
+  useEffect(() => {
+    const wall = wallRef.current;
+    if (!wall || !layout?.track) return;
+
+    const sync = () => {
+      const first = wall.firstElementChild;
+      const second = wall.children[1];
+      if (!first) return;
+      const step = second
+        ? second.getBoundingClientRect().left - first.getBoundingClientRect().left
+        : first.getBoundingClientRect().width;
+      if (step > 0) setActive(Math.round(wall.scrollLeft / step));
+    };
+
+    sync();
+    wall.addEventListener("scroll", sync, { passive: true });
+    return () => wall.removeEventListener("scroll", sync);
+  }, [layout?.track]);
+
+  function scrollToCard(index: number) {
+    const wall = wallRef.current;
+    const first = wall?.firstElementChild;
+    const second = wall?.children[1];
+    if (!wall || !first) return;
+    const step = second
+      ? second.getBoundingClientRect().left - first.getBoundingClientRect().left
+      : first.getBoundingClientRect().width;
+    wall.scrollTo({ left: index * step, behavior: "smooth" });
+  }
 
   // Drive the native dialog from state rather than the other way round, so
   // Escape, the backdrop and the buttons all end up in the same place.
@@ -159,6 +204,26 @@ export function CertificateWall({ items }: { items: Certificate[] }) {
           </li>
         ))}
       </ul>
+
+      {/* Position for the track. The grid needs none - every card is on screen
+          at once - so these only exist below the breakpoint. */}
+      {layout?.track && items.length > 1 ? (
+        <div className="certs__dots">
+          {items.map((item, i) => (
+            <button
+              key={item.image}
+              type="button"
+              onClick={() => scrollToCard(i)}
+              aria-label={interpolate(labels.showCertificate, {
+                title: item.title,
+                issuer: item.issuer,
+              })}
+              aria-current={i === active}
+              className="certs__dot"
+            />
+          ))}
+        </div>
+      ) : null}
 
       {capped ? (
         <div className="certs__more-row">
