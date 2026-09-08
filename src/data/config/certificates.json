@@ -2,5 +2,7 @@
   "imagePath": "certificates",
   "rowsBeforeToggle": 2,
   "minVisible": 4,
-  "initialCount": 8
+  "initialCount": 8,
+  "advanceMs": 4500,
+  "resumeAfterInteractionMs": 7000
 }

@@ -47,8 +47,10 @@ export {
 } from "./pillars";
 export {
   certificates,
+  CERTIFICATES_ADVANCE_MS,
   CERTIFICATES_INITIAL_COUNT,
   CERTIFICATES_MIN_VISIBLE,
+  CERTIFICATES_RESUME_MS,
   CERTIFICATES_ROWS_BEFORE_TOGGLE,
   type Certificate,
 } from "./certificates";

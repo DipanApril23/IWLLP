@@ -11,8 +11,10 @@ import {
   X,
 } from "lucide-react";
 import {
+  CERTIFICATES_ADVANCE_MS,
   CERTIFICATES_INITIAL_COUNT,
   CERTIFICATES_MIN_VISIBLE,
+  CERTIFICATES_RESUME_MS,
   CERTIFICATES_ROWS_BEFORE_TOGGLE,
   certificates,
   type Certificate,
@@ -21,12 +23,26 @@ import { interpolate } from "@/lib/text";
 
 const labels = certificates.labels;
 
+/** Slack in px when comparing scroll positions - sub-pixel widths never land
+ *  on an exact boundary. */
+const EPSILON = 8;
+
+/** One card plus the gap after it - the distance of a single advance. */
+function stepWidth(wall: HTMLElement) {
+  const first = wall.firstElementChild;
+  const second = wall.children[1];
+  if (!first) return 0;
+  const a = first.getBoundingClientRect();
+  return second ? second.getBoundingClientRect().left - a.left : a.width;
+}
+
 /**
  * The credential wall: the certificates the firm holds, each opening full size
  * in a dialog.
  *
- * Built to survive the list growing. On a phone the wall is a swipeable track,
- * one card at a time, so its height is one card however many there are. Wider
+ * Built to survive the list growing. On a phone the wall is a track that
+ * advances on its own and can be swiped, one card at a time, so its height is
+ * one card however many there are. Wider
  * up it is a grid that derives its column count from the width rather than
  * hard-coding one per breakpoint, and shows two rows of whatever that works out
  * to before offering the rest (uncapped, twenty certificates run to 7000px).
@@ -37,6 +53,8 @@ export function CertificateWall({ items }: { items: Certificate[] }) {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const railRef = useRef<HTMLDivElement>(null);
   const wallRef = useRef<HTMLUListElement>(null);
+  const hovering = useRef(false);
+  const heldUntil = useRef(0);
   const [open, setOpen] = useState<number | null>(null);
   const [expanded, setExpanded] = useState(false);
   /** What the stylesheet made of the wall. Null until measured. */
@@ -91,12 +109,7 @@ export function CertificateWall({ items }: { items: Certificate[] }) {
     if (!wall || !layout?.track) return;
 
     const sync = () => {
-      const first = wall.firstElementChild;
-      const second = wall.children[1];
-      if (!first) return;
-      const step = second
-        ? second.getBoundingClientRect().left - first.getBoundingClientRect().left
-        : first.getBoundingClientRect().width;
+      const step = stepWidth(wall);
       if (step > 0) setActive(Math.round(wall.scrollLeft / step));
     };
 
@@ -105,15 +118,42 @@ export function CertificateWall({ items }: { items: Certificate[] }) {
     return () => wall.removeEventListener("scroll", sync);
   }, [layout?.track]);
 
+  const hold = useCallback(() => {
+    heldUntil.current = Date.now() + CERTIFICATES_RESUME_MS;
+  }, []);
+
+  // Auto-advance, one card at a time, wrapping at the end. Only as a track:
+  // the grid has every card on screen already. It stands down while a
+  // certificate is open, because scrolling the wall behind the dialog moves
+  // the page out from under whoever is reading it.
+  useEffect(() => {
+    const wall = wallRef.current;
+    if (!wall || !layout?.track || open !== null) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    const timer = window.setInterval(() => {
+      const overflow = wall.scrollWidth - wall.clientWidth;
+      if (overflow < EPSILON) return;
+      if (hovering.current || Date.now() < heldUntil.current) return;
+
+      const step = stepWidth(wall);
+      if (step <= 0) return;
+      const atEnd = wall.scrollLeft >= overflow - EPSILON;
+      wall.scrollTo({
+        left: atEnd ? 0 : wall.scrollLeft + step,
+        behavior: "smooth",
+      });
+    }, CERTIFICATES_ADVANCE_MS);
+
+    return () => window.clearInterval(timer);
+  }, [layout?.track, open]);
+
   function scrollToCard(index: number) {
     const wall = wallRef.current;
-    const first = wall?.firstElementChild;
-    const second = wall?.children[1];
-    if (!wall || !first) return;
-    const step = second
-      ? second.getBoundingClientRect().left - first.getBoundingClientRect().left
-      : first.getBoundingClientRect().width;
-    wall.scrollTo({ left: index * step, behavior: "smooth" });
+    if (!wall) return;
+    hold();
+    const step = stepWidth(wall);
+    if (step > 0) wall.scrollTo({ left: index * step, behavior: "smooth" });
   }
 
   // Drive the native dialog from state rather than the other way round, so
@@ -160,7 +200,15 @@ export function CertificateWall({ items }: { items: Certificate[] }) {
 
   return (
     <>
-      <ul ref={wallRef} className="certs__wall" aria-label={labels.region}>
+      <ul
+        ref={wallRef}
+        className="certs__wall"
+        aria-label={labels.region}
+        onPointerEnter={() => (hovering.current = true)}
+        onPointerLeave={() => (hovering.current = false)}
+        onPointerDown={hold}
+        onTouchStart={hold}
+      >
         {visible.map((item, i) => (
           <li key={item.image} className="certs__card">
             {/* The scan sits on a cream mat with a gold rule inside it, like a

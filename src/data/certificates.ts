@@ -65,6 +65,17 @@ export const CERTIFICATES_ROWS_BEFORE_TOGGLE = certificatesConfig.rowsBeforeTogg
 export const CERTIFICATES_MIN_VISIBLE = certificatesConfig.minVisible;
 
 /**
+ * How long a certificate holds before the track advances on its own.
+ *
+ * Only the track auto-advances. The grid has every card on screen already, so
+ * there is nothing for it to scroll to.
+ */
+export const CERTIFICATES_ADVANCE_MS = certificatesConfig.advanceMs;
+
+/** How long to leave the track alone after someone swipes or taps it. */
+export const CERTIFICATES_RESUME_MS = certificatesConfig.resumeAfterInteractionMs;
+
+/**
  * Cards rendered before the column count has been measured - the server render
  * and anything without JavaScript. Sized for the widest layout so a desktop
  * first paint is already correct and only narrower ones settle.
