@@ -52,6 +52,11 @@ export {
   CERTIFICATES_ROWS_BEFORE_TOGGLE,
   type Certificate,
 } from "./certificates";
+export {
+  contactBand,
+  contactForm,
+  type ContactDetail,
+} from "./contact-band";
 export { aboutContent } from "./about";
 export { contactContent, type ContactField } from "./contact";
 export { footerContent, footerCopyright } from "./footer";

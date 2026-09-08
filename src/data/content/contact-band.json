@@ -1,0 +1,36 @@
+{
+  "eyebrow": "Don't Hesitate To Ask",
+  "title": "YOUR TRUSTED PARTNER",
+  "icon": "landmark",
+  "description": "We pride ourselves on providing **personalized attention, clear communication and unwavering dedication** to achieving the best possible outcome for our clients.",
+  "background": {
+    "image": "contact-us.png",
+    "alt": ""
+  },
+  "formHeading": "Send us a message",
+  "formNote": "Every enquiry is treated in confidence.",
+  "details": [
+    {
+      "icon": "phone",
+      "label": "24x7 Emergency",
+      "value": "{phone}",
+      "href": "{phoneHref}"
+    },
+    {
+      "icon": "mail",
+      "label": "Email",
+      "value": "{email}",
+      "href": "mailto:{email}"
+    },
+    {
+      "icon": "map-pin",
+      "label": "Office",
+      "value": "{address}",
+      "href": ""
+    }
+  ],
+  "labels": {
+    "formTitle": "Contact Us Innerwork Advisors LLP",
+    "detailsRegion": "Ways to reach us"
+  }
+}

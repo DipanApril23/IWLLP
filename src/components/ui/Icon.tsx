@@ -9,6 +9,9 @@ import {
   Gem,
   Landmark,
   Award,
+  Phone,
+  Mail,
+  MapPin,
   type LucideIcon,
 } from "lucide-react";
 
@@ -24,7 +27,10 @@ export type IconName =
   | "target"
   | "gem"
   | "landmark"
-  | "award";
+  | "award"
+  | "phone"
+  | "mail"
+  | "map-pin";
 
 const icons: Record<IconName, LucideIcon> = {
   search: Search,
@@ -37,6 +43,9 @@ const icons: Record<IconName, LucideIcon> = {
   gem: Gem,
   landmark: Landmark,
   award: Award,
+  phone: Phone,
+  mail: Mail,
+  "map-pin": MapPin,
 };
 
 export function Icon({

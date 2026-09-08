@@ -3,6 +3,7 @@ import { MissionVisionValues } from "@/components/home/MissionVisionValues";
 import { WhatWeDo } from "@/components/home/WhatWeDo";
 import { Team } from "@/components/home/Team";
 import { Certificates } from "@/components/home/Certificates";
+import { ContactBand } from "@/components/home/ContactBand";
 import { WhyChooseUs } from "@/components/home/WhyChooseUs";
 import { CtaSection } from "@/components/home/CtaSection";
 
@@ -14,6 +15,7 @@ export default function Home() {
       <WhatWeDo />
       <Team />
       <Certificates />
+      <ContactBand />
       <WhyChooseUs />
       <CtaSection />
     </>

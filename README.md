@@ -37,7 +37,8 @@ src/
     contact/ContactForm.tsx  Client form (not wired to a backend yet)
   components/
     layout/                  Header, Footer, Container
-    home/                    Home sections (Hero, MissionVisionValues, WhatWeDo, Team, Certificates…)
+    home/                    Home sections (Hero, MissionVisionValues, WhatWeDo, Team,
+                             Certificates, ContactBand…)
                              Pillars renders inside Team, not as its own section
     ui/                      Primitives (Button, SectionHeading, Icon)
   data/
@@ -103,6 +104,7 @@ There are two base URLs because there are two directories on the account:
 | "Our Team" band, photo and caption | `data/content/team.json` |
 | "The Pillars" member cards | `data/content/pillars.json` |
 | Certificates and their details | `data/content/certificates.json` |
+| "Your Trusted Partner" contact band | `data/content/contact-band.json` |
 | Why-choose-us points, closing CTA | `data/content/home.json` |
 | Service list and detail pages | `data/content/services.json` |
 | About / Contact page copy, form fields | `data/content/about.json`, `contact.json` |
@@ -110,6 +112,7 @@ There are two base URLs because there are two directories on the account:
 | Image host | `data/config/images.json` |
 | Carousel timings | `data/config/hero.json`, `what-we-do.json`, `pillars.json` |
 | How much of the certificate wall shows before "show all" | `data/config/certificates.json` |
+| Enquiry form URL and ids | `data/config/contact-band.json` |
 
 ## Still to do
 
@@ -128,6 +131,15 @@ There are two base URLs because there are two directories on the account:
       the bios are one or two sentences. Supply longer profiles and it can open
       a dialog, or become `/team/[slug]` pages built the way `/services/[slug]`
       already is.
+- [ ] The enquiry form is embedded without its host's `form_embed.js`, so its
+      frame carries a measured fixed height instead of resizing to its content
+      (see the table in `styles/components/contact-band.css`). If the form's
+      fields ever change, re-measure - or load LeadConnector's script and let
+      the frame size itself.
+- [ ] The closing `CtaSection` ("Need a discreet consultation? -> Contact us")
+      now sits below a working contact form, and `WhyChooseUs` sits between
+      them. Worth deciding whether the contact band should be the last section
+      instead.
 - [ ] Verify two certificate reference numbers in `certificates.json`, read off
       the scans: APDI `CM-APDI/417` and ISO `902385/2026/R`. The CAPSI and
       WBRERA numbers were not legible enough to transcribe, so their

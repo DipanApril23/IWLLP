@@ -1,0 +1,234 @@
+/* "Your Trusted Partner" contact band - src/components/home/ContactBand.tsx
+
+   The office photograph full bleed, the copy and the ways to reach us over it,
+   and the embedded enquiry form on a white card beside them.
+
+   In CSS rather than utilities because the wash changes direction with the
+   layout and the form's frame has to be given a height the widget cannot
+   negotiate for itself. */
+
+/* Weighted to the copy side on a desktop and evened out once the columns
+   stack, so the photograph still reads on a phone instead of going flat. */
+.contact__shade {
+  background-image: linear-gradient(
+    to right,
+    rgb(21 32 56 / 0.94),
+    rgb(21 32 56 / 0.86) 45%,
+    rgb(21 32 56 / 0.6)
+  );
+}
+
+@media (width < 64rem) {
+  .contact__shade {
+    background-image: linear-gradient(
+      to bottom,
+      rgb(21 32 56 / 0.92),
+      rgb(21 32 56 / 0.8) 40%,
+      rgb(21 32 56 / 0.92)
+    );
+  }
+}
+
+.contact__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: center;
+  gap: 2.5rem;
+}
+
+/* Two columns once the form can have a sensible width without squeezing the
+   copy beside it into a ribbon. */
+@media (width >= 64rem) {
+  .contact__grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+    gap: 3rem;
+  }
+}
+
+@media (width >= 80rem) {
+  .contact__grid {
+    gap: 4rem;
+  }
+}
+
+.contact__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: clamp(1rem, 0.958rem + 0.208vw, 1.125rem);
+  font-style: italic;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+}
+
+.contact__eyebrow-icon {
+  flex: none;
+}
+
+.contact__title {
+  margin-block-start: 0.55rem;
+  font-size: clamp(1.75rem, 1.375rem + 1.875vw, 2.75rem);
+  line-height: 1.1;
+  letter-spacing: 0.01em;
+  color: #ffffff;
+}
+
+.contact__rule {
+  display: block;
+  inline-size: 3.5rem;
+  block-size: 3px;
+  margin-block: 1.1rem 1.25rem;
+  border-radius: 9999px;
+  background-image: linear-gradient(
+    to right,
+    var(--color-accent),
+    rgb(207 167 88 / 0.25)
+  );
+}
+
+.contact__lede {
+  max-inline-size: 34rem;
+  font-size: clamp(1rem, 0.979rem + 0.104vw, 1.0625rem);
+  line-height: 1.75;
+  color: rgb(255 255 255 / 0.82);
+  text-wrap: pretty;
+}
+
+.contact__strong {
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.contact__details {
+  display: grid;
+  gap: 0.9rem;
+  margin-block-start: 2rem;
+}
+
+.contact__detail {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+}
+
+.contact__detail-icon {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 2.25rem;
+  block-size: 2.25rem;
+  border: 1px solid rgb(207 167 88 / 0.4);
+  border-radius: 9999px;
+  background-color: rgb(207 167 88 / 0.16);
+  color: var(--color-accent);
+}
+
+.contact__detail-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  min-inline-size: 0;
+}
+
+.contact__detail-label {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgb(255 255 255 / 0.55);
+}
+
+.contact__detail-value {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  line-height: 1.5;
+  color: #ffffff;
+  overflow-wrap: anywhere;
+}
+
+a.contact__detail-value {
+  transition: color 200ms ease;
+}
+
+a.contact__detail-value:hover {
+  color: var(--color-accent);
+}
+
+/* ---- The form card --------------------------------------------------- */
+
+.contact__card {
+  /* Tight on a phone on purpose. Padding here is width taken away from the
+     form, and the form gets taller the narrower it is - every 20px given back
+     to the frame is worth far more than the padding looks. */
+  padding: 0.9rem 0.9rem 1.2rem;
+  border-radius: 1rem;
+  background-color: #ffffff;
+  box-shadow:
+    0 0 0 1px rgb(255 255 255 / 0.6),
+    0 34px 70px -34px rgb(2 6 23 / 0.85);
+}
+
+@media (width >= 40rem) {
+  .contact__card {
+    padding: 1.75rem 1.75rem 2rem;
+  }
+}
+
+.contact__card-title {
+  font-size: 1.125rem;
+  font-weight: 800;
+  line-height: 1.3;
+  color: #0f172a;
+}
+
+.contact__card-note {
+  margin-block-start: 0.3rem;
+  padding-block-end: 1rem;
+  border-block-end: 1px solid #e2e8f0;
+  font-size: 0.8125rem;
+  color: #64748b;
+}
+
+/* The widget is embedded without its host's resize script, so the frame is
+   given a height rather than negotiating one. The form's height is a step
+   function of how wide the frame is - it reflows and grows as it narrows -
+   measured on the live widget:
+
+     frame  210px -> 1096px      frame  320px -> 720px
+     frame  230px ->  880px      frame  342px -> 693px
+     frame  250px ->  799px      frame  480px -> 693px
+     frame  272px ->  772px      frame  536px -> 723px
+     frame  290px ->  720px      frame  664px -> 723px
+
+   so the height steps with it. Each value clears the tallest form that can
+   occur in its band with slack for a validation message; anything left over
+   reads as padding, because the card behind the frame is white too. Undershoot
+   would be worse than overshoot - it puts a second scrollbar inside the page. */
+.contact__frame {
+  margin-block-start: 1rem;
+  block-size: 58rem;
+}
+
+/* From here the frame is at least 283px wide, where the form settles at 772. */
+@media (width >= 22.5rem) {
+  .contact__frame {
+    block-size: 50rem;
+  }
+}
+
+/* And from here at least 307px, where it settles at 723 and stays there all
+   the way up - including the 477px frame the split layout gives it. */
+@media (width >= 24rem) {
+  .contact__frame {
+    block-size: 47rem;
+  }
+}
+
+.contact__iframe {
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
+  border: none;
+  border-radius: 3px;
+}
