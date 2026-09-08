@@ -161,7 +161,7 @@ a.contact__detail-value:hover {
   /* Tight on a phone on purpose. Padding here is width taken away from the
      form, and the form gets taller the narrower it is - every 20px given back
      to the frame is worth far more than the padding looks. */
-  padding: 0.9rem 0.9rem 1.2rem;
+  padding: 0.9rem 0.9rem 0.6rem;
   border-radius: 1rem;
   background-color: #ffffff;
   box-shadow:
@@ -171,7 +171,7 @@ a.contact__detail-value:hover {
 
 @media (width >= 40rem) {
   .contact__card {
-    padding: 1.75rem 1.75rem 2rem;
+    padding: 1.75rem 1.75rem 0.9rem;
   }
 }
 
@@ -190,45 +190,51 @@ a.contact__detail-value:hover {
   color: #64748b;
 }
 
-/* The widget is embedded without its host's resize script, so the frame is
-   given a height rather than negotiating one. The form's height is a step
-   function of how wide the frame is - it reflows and grows as it narrows -
-   measured on the live widget:
+/* The frame is given a height because the widget cannot negotiate one, and the
+   height has to cover the form at its TALLEST, not its usual size. Two things
+   move it:
 
-     frame  210px -> 1096px      frame  320px -> 720px
-     frame  230px ->  880px      frame  342px -> 693px
-     frame  250px ->  799px      frame  480px -> 693px
-     frame  272px ->  772px      frame  536px -> 723px
-     frame  290px ->  720px      frame  664px -> 723px
+   1. Width. The form reflows as it narrows, so it gets taller the narrower the
+      frame is.
+   2. State. A submit with required fields empty adds an error line under each
+      of them - four of them - and that alone is worth 141-166px.
 
-   so the height steps with it. Each value clears the tallest form that can
-   occur in its band with slack for a validation message; anything left over
-   reads as padding, because the card behind the frame is white too. Undershoot
-   would be worse than overshoot - it puts a second scrollbar inside the page. */
+   Sizing for the pristine form is what put a scrollbar inside the frame the
+   moment anyone mis-submitted, and a vertical scrollbar then takes 15px of
+   width, which brings a horizontal one with it. Measured on the live widget,
+   pristine -> with four errors:
+
+     frame 243px -> 799 -> 965      frame 419px -> 693 -> 834
+     frame 283px -> 745 -> 911      frame 477px -> 693 -> 834
+     frame 313px -> 720 -> 886      frame 536px -> 723 -> 864
+     frame 353px -> 693 -> 834      frame 664px -> 723 -> 864
+
+   Each step below clears the worst case in its band. The slack left over in
+   the ordinary state reads as padding, because the card behind the frame is
+   white too - which is why the card's own bottom padding is nearly nothing. */
 .contact__frame {
   margin-block-start: 1rem;
-  block-size: 58rem;
-}
-
-/* From here the frame is at least 283px wide, where the form settles at 772. */
-@media (width >= 22.5rem) {
-  .contact__frame {
-    block-size: 50rem;
-  }
-}
-
-/* And from here at least 307px, where it settles at 723 and stays there all
-   the way up - including the 477px frame the split layout gives it. */
-@media (width >= 24rem) {
-  .contact__frame {
-    block-size: 47rem;
-  }
 }
 
 .contact__iframe {
   display: block;
   inline-size: 100%;
-  block-size: 100%;
+  block-size: 61rem;
   border: none;
   border-radius: 3px;
+}
+
+/* From here the frame is at least 307px wide, where the worst case is 893. */
+@media (width >= 24rem) {
+  .contact__iframe {
+    block-size: 57rem;
+  }
+}
+
+/* And from here at least 355px, where it drops to 834 - and stays under 864
+   all the way up, including the 664px frame a tablet gives it. */
+@media (width >= 27rem) {
+  .contact__iframe {
+    block-size: 56rem;
+  }
 }

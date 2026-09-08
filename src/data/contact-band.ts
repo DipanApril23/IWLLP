@@ -54,5 +54,13 @@ export const contactBand = {
   ),
 };
 
-/** The embedded enquiry form. Its URL and ids are an integration detail. */
+/**
+ * The embedded enquiry form. Its URL and ids are an integration detail.
+ *
+ * Deliberately without the widget host's own `form_embed.js`. That script is
+ * written to build the iframe itself, and dropped onto one that is already in
+ * the markup it takes the element over: measured here it stretched the frame
+ * to the full width of the viewport, past the card holding it, and the iframe
+ * then never requested its source at all. The frame is sized in CSS instead.
+ */
 export const contactForm = contactBandConfig.form;

@@ -131,11 +131,14 @@ There are two base URLs because there are two directories on the account:
       the bios are one or two sentences. Supply longer profiles and it can open
       a dialog, or become `/team/[slug]` pages built the way `/services/[slug]`
       already is.
-- [ ] The enquiry form is embedded without its host's `form_embed.js`, so its
-      frame carries a measured fixed height instead of resizing to its content
-      (see the table in `styles/components/contact-band.css`). If the form's
-      fields ever change, re-measure - or load LeadConnector's script and let
-      the frame size itself.
+- [ ] The enquiry form's frame carries a measured fixed height, sized for the
+      form at its tallest - a submit with the required fields empty adds an
+      error line under each and is worth 141-166px. See the table in
+      `styles/components/contact-band.css`; if the form's fields change,
+      re-measure. Do not reach for the widget host's `form_embed.js`: it is
+      written to build the iframe itself and, dropped onto one already in the
+      markup, it stretched the frame past its card and the iframe then never
+      loaded at all.
 - [ ] The closing `CtaSection` ("Need a discreet consultation? -> Contact us")
       now sits below a working contact form, and `WhyChooseUs` sits between
       them. Worth deciding whether the contact band should be the last section

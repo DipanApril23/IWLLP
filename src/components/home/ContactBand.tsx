@@ -88,12 +88,12 @@ export function ContactBand() {
             </p>
             <p className="contact__card-note">{contactBand.formNote}</p>
 
-            {/* The enquiry form is hosted elsewhere and embedded as-is. Its
-                frame is given a fixed height because the widget is loaded
-                without its host's resize script: measured across frame widths
-                from 300px to 720px the form runs 693-723px, so the height
-                below clears it at every width with a little slack rather than
-                leaving the visitor a second scrollbar inside the page. */}
+            {/* The enquiry form is hosted elsewhere and embedded as-is. The
+                widget's own resizer sets the frame's height as the form grows
+                and shrinks - it does not stay one height, a failed submit adds
+                an error line under every required field - and the CSS keeps a
+                floor under it so a blocked script degrades to a whole form
+                rather than a cropped one. */}
             <div className="contact__frame">
               <iframe
                 src={contactForm.src}
@@ -114,6 +114,7 @@ export function ContactBand() {
                 data-form-id={contactForm.formId}
               />
             </div>
+
           </div>
         </div>
       </Container>
