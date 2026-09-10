@@ -5,6 +5,9 @@ import { contactContent, siteConfig } from "@/data";
 import { ContactForm } from "./ContactForm";
 
 export const metadata: Metadata = {
+  // Explicit, because a page without one inherits the root layout's
+  // canonical and would declare itself a duplicate of the home page.
+  alternates: { canonical: "/contact" },
   title: contactContent.metaTitle,
   description: `Get in touch with ${siteConfig.name}.`,
 };
@@ -15,6 +18,7 @@ export default function ContactPage() {
   return (
     <Container className="py-24">
       <SectionHeading
+        level={1}
         eyebrow={contactContent.eyebrow}
         title={contactContent.title}
         description={contactContent.description}

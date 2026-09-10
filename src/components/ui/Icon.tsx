@@ -12,6 +12,8 @@ import {
   Phone,
   Mail,
   MapPin,
+  Globe,
+  Fingerprint,
   type LucideIcon,
 } from "lucide-react";
 
@@ -30,7 +32,9 @@ export type IconName =
   | "award"
   | "phone"
   | "mail"
-  | "map-pin";
+  | "map-pin"
+  | "globe"
+  | "fingerprint";
 
 const icons: Record<IconName, LucideIcon> = {
   search: Search,
@@ -46,6 +50,8 @@ const icons: Record<IconName, LucideIcon> = {
   phone: Phone,
   mail: Mail,
   "map-pin": MapPin,
+  globe: Globe,
+  fingerprint: Fingerprint,
 };
 
 export function Icon({

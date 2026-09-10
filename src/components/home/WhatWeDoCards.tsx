@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import { Icon } from "@/components/ui/Icon";
 import {
   WHAT_WE_DO_ADVANCE_MS,
@@ -104,14 +105,23 @@ export function WhatWeDoCards({ cards }: { cards: WhatWeDoCard[] }) {
         onTouchStart={hold}
       >
         {cards.map((card) => (
-          <article key={card.title} className="what-we-do__card">
+          <article key={card.slug} className="what-we-do__card">
             <Icon
               name={card.icon}
               className="what-we-do__icon text-accent h-8 w-8"
               strokeWidth={1.75}
             />
 
-            <h3 className="what-we-do__chip">{card.title}</h3>
+            {/* The link wraps the chip rather than sitting inside it. Its
+                stretched hit area is positioned against the card, and the chip
+                is itself a positioned ancestor for its own underline - inside
+                it, the link would only ever have covered the label.
+
+                The service name is the anchor text on purpose: this band is
+                the home page's only route into the service pages. */}
+            <Link href={card.href} className="what-we-do__link">
+              <h3 className="what-we-do__chip">{card.title}</h3>
+            </Link>
 
             <p className="mt-4 text-sm leading-relaxed text-white/75">
               {card.description}
@@ -124,7 +134,7 @@ export function WhatWeDoCards({ cards }: { cards: WhatWeDoCard[] }) {
         <div className="what-we-do__dots">
           {cards.map((card, i) => (
             <button
-              key={card.title}
+              key={card.slug}
               type="button"
               onClick={() => goTo(i)}
               aria-label={interpolate(whatWeDo.labels.showCard, {

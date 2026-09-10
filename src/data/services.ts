@@ -9,14 +9,25 @@ export type ServiceIcon =
   | "home"
   | "briefcase"
   | "user-check"
-  | "eye";
+  | "eye"
+  | "globe"
+  | "fingerprint";
 
 export type Service = {
   slug: string;
   title: string;
-  shortDescription: string;
-  description: string;
   icon: ServiceIcon;
+  /** One line, used on the services index and as the card summary. */
+  shortDescription: string;
+  /** The body of the service's own page. */
+  description: string;
+  /** Written per service rather than reused from `title` - a page title has to
+   *  earn a click from a search result, which a bare service name does not. */
+  metaTitle: string;
+  metaDescription: string;
+  /** The terms this page is written to answer. Emitted as meta keywords, but
+   *  they matter because they appear in the title, description and copy. */
+  keywords: string[];
 };
 
 // JSON widens string literals, so `icon` needs narrowing back to the union.

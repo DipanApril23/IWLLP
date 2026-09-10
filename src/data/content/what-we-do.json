@@ -12,33 +12,39 @@
   },
   "cards": [
     {
+      "slug": "private-investigation",
       "icon": "search",
-      "title": "Investigation",
-      "description": "Uncovering the truth, gathering evidence, resolving complex cases, ensuring accountability, and delivering justice."
+      "title": "Private Investigation",
+      "description": "Confidential matrimonial, pre-matrimonial and personal enquiries across Kolkata and West Bengal, with the evidence behind every finding."
     },
     {
+      "slug": "security-services",
       "icon": "shield",
-      "title": "Personal Security",
-      "description": "Protecting lives, securing assets, ensuring safety, and providing peace of mind and confidence."
+      "title": "Security Services",
+      "description": "Vetted, trained guards and supervisors for societies, offices, warehouses and events — plus the site audit that says what you actually need."
     },
     {
+      "slug": "corporate-investigation-risk",
       "icon": "briefcase",
-      "title": "Corporate Intelligence",
-      "description": "Demo copy — due diligence, competitor insight and risk assessment that let a business decide on evidence rather than instinct."
+      "title": "Corporate Investigation & Risk",
+      "description": "Due diligence, employee and vendor verification, and internal fraud enquiries that let a business decide on evidence rather than instinct."
     },
     {
-      "icon": "user-check",
-      "title": "Background Checks",
-      "description": "Demo copy — identity, address, employment and record verification before you hire, rent or sign a partnership."
+      "slug": "nri-services",
+      "icon": "globe",
+      "title": "NRI Services",
+      "description": "On-ground checks in India for non-resident Indians — matrimonial, property and tenant verification, and welfare visits to family."
     },
     {
-      "icon": "eye",
-      "title": "Surveillance",
-      "description": "Demo copy — covert and overt field operatives gathering verifiable, court-admissible evidence where a case demands it."
+      "slug": "forensic-investigation",
+      "icon": "fingerprint",
+      "title": "Forensic Investigation",
+      "description": "Questioned documents, handwriting and signature comparison, and digital evidence — handled so the method stands up to review."
     }
   ],
   "labels": {
     "region": "Our services",
-    "showCard": "Show {title}"
+    "showCard": "Show {title}",
+    "cardLink": "{title} - read more"
   }
 }

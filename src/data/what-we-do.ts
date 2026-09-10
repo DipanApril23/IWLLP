@@ -3,19 +3,38 @@
 import whatWeDoContent from "./content/what-we-do.json";
 import imagesConfig from "./config/images.json";
 import whatWeDoConfig from "./config/what-we-do.json";
-import type { ServiceIcon } from "./services";
+import { services, type ServiceIcon } from "./services";
 
 export type WhatWeDoCard = {
   /** A key of the icon map in src/components/ui/Icon.tsx. */
   icon: ServiceIcon;
   title: string;
   description: string;
+  /** The service this card summarises. */
+  slug: string;
+  /** Built from the slug, so a card and its page can never point apart. */
+  href: string;
 };
 
 export const whatWeDo = {
   ...whatWeDoContent,
-  // JSON widens string literals, so `icon` needs narrowing back to the union.
-  cards: whatWeDoContent.cards as WhatWeDoCard[],
+  // Each card names the service it summarises rather than repeating its URL:
+  // the band is the home page's only route into the service pages, so the two
+  // have to stay in step. The check below fails the build if a card names a
+  // service that does not exist.
+  cards: whatWeDoContent.cards.map((card): WhatWeDoCard => {
+    if (!services.some((service) => service.slug === card.slug)) {
+      throw new Error(
+        `what-we-do.json card "${card.title}" points at an unknown service: "${card.slug}"`,
+      );
+    }
+    return {
+      ...card,
+      // JSON widens string literals, so `icon` needs narrowing back.
+      icon: card.icon as ServiceIcon,
+      href: `/services/${card.slug}`,
+    };
+  }),
   background: {
     ...whatWeDoContent.background,
     /**

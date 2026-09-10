@@ -84,6 +84,10 @@
      edge looked like a rendering fault rather than an affordance. */
   flex: 0 0 100%;
   scroll-snap-align: start;
+  /* The containing block for the chip link's stretched hit area. Without this
+     the link resolves against the chip, which is positioned for its underline,
+     and only the label would be clickable. */
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -154,6 +158,18 @@
   border-radius: 0.3rem;
 }
 
+/* Five across is the narrowest a card ever gets, and the longest service name
+   ("Corporate Investigation & Risk") wraps to three lines there. The floor has
+   to follow, or that one card's description starts a line below the rest.
+
+   After the base rule on purpose: same specificity, so placed before it this
+   would simply lose. */
+@media (width >= 80rem) {
+  .what-we-do__chip {
+    min-block-size: 4.15rem;
+  }
+}
+
 .what-we-do__chip::after {
   content: "";
   position: absolute;
@@ -168,6 +184,30 @@
 
 .what-we-do__card:hover .what-we-do__chip::after {
   inline-size: 2.5rem;
+}
+
+/* The link into the service's own page, wrapping the chip. Its hit area is
+   stretched over the whole card, so the card is clickable while the page keeps
+   a single focus stop per service. */
+.what-we-do__link {
+  display: block;
+  color: inherit;
+}
+
+.what-we-do__link::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.what-we-do__link:focus-visible {
+  outline: none;
+}
+
+.what-we-do__card:has(.what-we-do__link:focus-visible) {
+  outline: 2px solid var(--color-accent);
+  outline-offset: -2px;
 }
 
 /* Progress dots, shown only while the track actually scrolls. */

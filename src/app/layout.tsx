@@ -22,11 +22,16 @@ const montserrat = Montserrat({
 
 export const metadata: Metadata = {
   title: {
-    default: `${siteConfig.name} - ${siteConfig.tagline}`,
+    // Written for a search result, not assembled from the name and tagline -
+    // that ran to 77 characters and was cut off before it reached "West
+    // Bengal". The template's suffix is why every page's own metaTitle has to
+    // leave room for it.
+    default: siteConfig.metaTitle,
     template: `%s | ${siteConfig.shortName}`,
   },
-  description: siteConfig.description,
+  description: siteConfig.metaDescription,
   metadataBase: new URL(siteConfig.url),
+  alternates: { canonical: "/" },
 };
 
 export default function RootLayout({

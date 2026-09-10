@@ -96,7 +96,7 @@ There are two base URLs because there are two directories on the account:
 
 | Change | File |
 |---|---|
-| Company name, phone, email, address | `data/content/site.json` |
+| Company name, phone, email, address, home-page SEO title/description | `data/content/site.json` |
 | Nav links, header button | `data/content/nav.json` |
 | Hero heading, slide images, CTAs | `data/content/hero.json` |
 | Mission / Vision / Values panels | `data/content/mission-vision-values.json` |
@@ -106,7 +106,7 @@ There are two base URLs because there are two directories on the account:
 | Certificates and their details | `data/content/certificates.json` |
 | "Your Trusted Partner" contact band | `data/content/contact-band.json` |
 | Why-choose-us points, closing CTA | `data/content/home.json` |
-| Service list and detail pages | `data/content/services.json` |
+| Service list, detail pages, per-service SEO title/description/keywords | `data/content/services.json` |
 | About / Contact page copy, form fields | `data/content/about.json`, `contact.json` |
 | Footer column titles, copyright | `data/content/footer.json` |
 | Image host | `data/config/images.json` |
@@ -116,7 +116,6 @@ There are two base URLs because there are two directories on the account:
 
 ## Still to do
 
-- [ ] Replace the demo copy in `what-we-do.json` (cards 3–5) with real service copy.
 - [ ] Point the hero's "Book a Consultation" CTA at a real booking page.
 - [ ] Wire `ContactForm` to a backend (API route, Resend/Formspree, or CRM).
 - [ ] Add a mobile nav menu — below `md` the header shows only the logo.

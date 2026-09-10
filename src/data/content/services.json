@@ -1,10 +1,10 @@
 {
   "page": {
-    "metaTitle": "Services",
-    "metaDescription": "Security, investigation and due-diligence services.",
+    "metaTitle": "Security & Investigation Services, Kolkata",
+    "metaDescription": "Private investigation, security, corporate risk, NRI verification and forensic examination across Kolkata and West Bengal.",
     "eyebrow": "Services",
-    "title": "What we offer",
-    "description": "Every engagement is scoped around the outcome you need, handled discreetly and within Indian law."
+    "title": "Security and investigation services in West Bengal",
+    "description": "Five practices, one standard: every engagement is scoped around the outcome you need, handled discreetly, and carried out within Indian law."
   },
   "detail": {
     "eyebrow": "Services",
@@ -15,44 +15,82 @@
     {
       "slug": "private-investigation",
       "title": "Private Investigation",
-      "shortDescription": "Discreet, evidence-based investigations for individuals and businesses.",
-      "description": "Confidential investigative support covering matrimonial, personal and civil matters, carried out with legal compliance and strict client confidentiality.",
-      "icon": "search"
-    },
-    {
-      "slug": "corporate-intelligence",
-      "title": "Corporate Intelligence",
-      "shortDescription": "Due diligence and risk intelligence for informed business decisions.",
-      "description": "Data-driven due diligence, competitor intelligence and risk assessments that help businesses make informed, defensible decisions.",
-      "icon": "briefcase"
-    },
-    {
-      "slug": "background-verification",
-      "title": "Background Verification",
-      "shortDescription": "Thorough background checks for employment, tenancy and partnerships.",
-      "description": "Verification of identity, address, employment history and criminal records for individuals and organisations before entering into an agreement.",
-      "icon": "user-check"
+      "icon": "search",
+      "shortDescription": "Confidential matrimonial, pre-matrimonial and personal enquiries, documented so you can act on them.",
+      "description": "Discreet investigation for individuals and families — matrimonial and pre-matrimonial enquiries, tracing, and personal or civil matters. Every assignment is handled under confidentiality, carried out within Indian law, and reported with the evidence behind each finding rather than the finding alone.",
+      "metaTitle": "Private Investigation Services in Kolkata",
+      "metaDescription": "Confidential private investigation in Kolkata and West Bengal - matrimonial, pre-matrimonial, tracing and personal enquiries, handled within the law.",
+      "keywords": [
+        "private investigation Kolkata",
+        "private detective agency West Bengal",
+        "matrimonial investigation",
+        "pre-matrimonial verification",
+        "confidential enquiry services"
+      ]
     },
     {
       "slug": "security-services",
-      "title": "Security Guard Services",
-      "shortDescription": "Trained security personnel for residential and commercial properties.",
-      "description": "Deployment of vetted, trained security guards and supervisors for residential societies, offices and events across West Bengal.",
-      "icon": "shield"
+      "title": "Security Services",
+      "icon": "shield",
+      "shortDescription": "Vetted, trained guards and supervisors, backed by supervision and on-site security audits.",
+      "description": "Screened and trained security personnel for residential societies, commercial premises, warehouses and events across West Bengal — supported by active supervision, shift auditing, and site assessments that find the gaps before anyone else does.",
+      "metaTitle": "Security Guard Services in Kolkata",
+      "metaDescription": "Trained, vetted security guards and supervisors for societies, offices, warehouses and events across West Bengal, with site audits and supervision.",
+      "keywords": [
+        "security guard services Kolkata",
+        "security agency West Bengal",
+        "corporate security services",
+        "event security Kolkata",
+        "site security audit"
+      ]
     },
     {
-      "slug": "home-security",
-      "title": "Home Security Consulting",
-      "shortDescription": "Security audits and surveillance planning for homes and gated communities.",
-      "description": "On-site security audits, CCTV and access-control planning, and gap analysis for homes and residential societies.",
-      "icon": "home"
+      "slug": "corporate-investigation-risk",
+      "title": "Corporate Investigation & Risk",
+      "icon": "briefcase",
+      "shortDescription": "Due diligence, employee verification and fraud enquiries for decisions that need evidence.",
+      "description": "Investigative support for businesses — pre-employment and vendor background verification, partner and counterparty due diligence, internal fraud and misconduct enquiries, and risk assessment ahead of a deal or an appointment. Findings are documented to stand up in an internal process or before a regulator.",
+      "metaTitle": "Corporate Investigation & Risk, Kolkata",
+      "metaDescription": "Due diligence, employee and vendor background verification, internal fraud enquiries and risk assessment for businesses in Kolkata and West Bengal.",
+      "keywords": [
+        "corporate investigation Kolkata",
+        "corporate due diligence India",
+        "employee background verification",
+        "internal fraud investigation",
+        "business risk assessment"
+      ]
     },
     {
-      "slug": "surveillance",
-      "title": "Surveillance & Monitoring",
-      "shortDescription": "Covert and overt surveillance to gather verifiable evidence.",
-      "description": "Trained field operatives conduct surveillance assignments to gather verifiable, court-admissible evidence where required.",
-      "icon": "eye"
+      "slug": "nri-services",
+      "title": "NRI Services",
+      "icon": "globe",
+      "shortDescription": "On-ground verification and representation in India for non-resident Indians.",
+      "description": "Local eyes for non-resident Indians who need something checked on the ground at home — pre-matrimonial and family background verification, property title and possession checks, tenant verification, and welfare visits to elderly relatives. Reports come back with photographs and documentation, so distance stops being a disadvantage.",
+      "metaTitle": "NRI Investigation Services in India",
+      "metaDescription": "On-ground checks in India for NRIs - pre-matrimonial, property and tenant verification, and family welfare visits, reported with documentation.",
+      "keywords": [
+        "NRI investigation services India",
+        "NRI matrimonial verification",
+        "property verification for NRI",
+        "tenant verification Kolkata",
+        "NRI detective agency"
+      ]
+    },
+    {
+      "slug": "forensic-investigation",
+      "title": "Forensic Investigation",
+      "icon": "fingerprint",
+      "shortDescription": "Questioned document, handwriting and digital evidence examination that survives scrutiny.",
+      "description": "Technical examination for matters that turn on the evidence itself — questioned documents, handwriting and signature comparison, and the collection and handling of digital evidence. The work draws on decades in government forensic science and is documented so the method, not only the conclusion, can be reviewed.",
+      "metaTitle": "Forensic Investigation in Kolkata",
+      "metaDescription": "Questioned documents, handwriting and signature comparison, and digital evidence handling in Kolkata, documented so the method can be reviewed.",
+      "keywords": [
+        "forensic investigation Kolkata",
+        "questioned document examination",
+        "handwriting expert India",
+        "signature verification",
+        "digital evidence handling"
+      ]
     }
   ]
 }
